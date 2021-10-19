@@ -2,8 +2,24 @@ package PebbleGame;
 
 public class PebbleGame {
 
-    class Player {
-    
+    class Player implements Runnable{
+
+        Bag bag;
+        int currentWeight;
+
+
+        public void run() {
+            
+        }
+
+        public void discardRock(Rock rock) {
+            bag.addRock(rock);
+            takeRock(); // !!!! WILL FLESH ALL OF THIS OUT AFTER TRAINING !!!!
+        }
+
+        public void drawRock() {
+
+        }
         
     }
     public static void main(String[] args) {
