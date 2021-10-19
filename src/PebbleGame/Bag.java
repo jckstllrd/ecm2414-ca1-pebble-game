@@ -25,7 +25,10 @@ public class Bag {
      * BlackBack
      */
     public class BlackBag {
-    
+        
+        public BlackBag() {
+            
+        }
         
     }
 }
