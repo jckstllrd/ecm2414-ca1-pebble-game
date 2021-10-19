@@ -9,7 +9,6 @@ public class UserInterface {
     private String getInput() {
         String input = sc.nextLine();
         return input;
-        
     }
 
     public void displayTitleMessage() {
@@ -17,9 +16,21 @@ public class UserInterface {
     }
 
     public int askNumPlayers() {
-        System.out.println("Please enter the number of players:");
-        String numPlayers = getInput();
-        return Integer.parseInt(numPlayers);
+        do {
+            try {
+                System.out.println("Please enter the number of players:");
+                String stringNumPlayers = getInput();
+                int numPlayers = Integer.parseInt(stringNumPlayers);
+                if (numPlayers <= 0) {
+                    throw new InvalidInputException("Unacceptable Input - Number of Players Entered was not a positive number");
+                }
+                return numPlayers;
+            } catch (NumberFormatException e) {
+                System.out.println("Error with given input, please enter a number not text.");
+            } catch (InvalidInputException e) {
+                System.out.println("Error ith given input, please enter a number greater than 0.");
+            }
+        } while (true);
     }
 
     public String askBagLocation(int bagNumber) {
