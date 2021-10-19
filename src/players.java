@@ -1,2 +1,2 @@
-public class players {
+public class Players {
 }
