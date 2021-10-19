@@ -4,6 +4,8 @@ public class Bag {
 
     Rock[] rocks = {};
 
+    Bag pairedBag;
+
     public void addRock(Rock newRock) {
         Rock[] newList = new Rock[rocks.length + 1];
         for (int i = 0; i < rocks.length; i++) {
@@ -27,7 +29,7 @@ public class Bag {
     public class BlackBag {
         
         public BlackBag() {
-            
+
         }
         
     }
