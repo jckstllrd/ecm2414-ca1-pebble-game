@@ -10,6 +10,19 @@ public class PebbleGame {
 
         public void run() {
             
+            /**
+             * When game begins:
+             * 
+             * Take 10 rocks from bag
+             * if not equal to 100:
+             *      discard a rock
+             *      take another rock (while bag not empty)
+             * if bag empty:
+             *      empty white bag into associated black bag
+             * 
+             * if equal to 100: 
+             *      you win
+             */
         }
 
         public void discardRock(Rock rock) {
