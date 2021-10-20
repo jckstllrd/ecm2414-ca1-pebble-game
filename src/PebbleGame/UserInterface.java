@@ -15,6 +15,10 @@ public class UserInterface {
         System.out.println("Welcome to the PebbleGame!!\nYou will be asked to enter the number of players.\nand then for the location of three files in turn contaiing comma separated integer values for the pebble weights.\nThe integer values must be strictly positive.\nTh game will then be simulated, and utput written to files in this directory.");
     }
 
+    public void displayErrorMessage(String error){
+        System.out.println(error);
+    }
+
     public int askNumPlayers() {
         do {
             try {

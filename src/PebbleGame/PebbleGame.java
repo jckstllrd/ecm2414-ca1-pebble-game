@@ -1,6 +1,15 @@
 package PebbleGame;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class PebbleGame {
+
+    static WhiteBag[] whiteBags = new WhiteBag[3];
+    static BlackBag[] blackBags = new BlackBag[3];
 
     class Player implements Runnable{
 
@@ -38,19 +47,63 @@ public class PebbleGame {
         }
         
     }
-    public static void main(String[] args) {
+
+    private static Rock[] getRocksFromFile(String fileLocation, int numPlayers) throws FileNotFoundException, IOException, InvalidRockWeightException{
+        BufferedReader br = new BufferedReader(new FileReader(fileLocation));
+        String line;
+        String[] weights = {};
+        while ((line = br.readLine()) != null) {
+            weights = line.split(",");
+        }
+        br.close();
+
+        if (numPlayers * 11 < weights.length) {
+            throw new InvalidRockWeightException("File doesn't have enough weights for number of players entered.");
+        }
+
+        Rock[] rocks = new Rock[weights.length];
+        for (int i = 0; i < rocks.length; i++) {
+            if (Integer.parseInt(weights[i]) <= 0) {
+                throw new InvalidRockWeightException("A Rock weight in a given file is non-positive.");
+            }
+            rocks[i] = new Rock(Integer.parseInt(weights[i]));
+        }
+        return rocks;
+    }
+
+    public static void main(String[] args) throws IOException, InvalidRockWeightException {
         UserInterface myUserInterface = new UserInterface();
 
         myUserInterface.displayTitleMessage();
+
         int numPlayers = myUserInterface.askNumPlayers();
 
-        String[] bagLocations = {"", "", ""};
+        String[] bagLocations = new String[3];
 
         for (int i = 0; i < 3; i++) {
             bagLocations[i] = myUserInterface.askBagLocation(i);
         }
 
-        System.out.println(numPlayers);
-        System.out.println(bagLocations);
+        do {
+            try {
+                for (int i = 0; i < bagLocations.length; i++) {
+                    Rock[] rocks = getRocksFromFile(bagLocations[i], numPlayers);
+                    whiteBags[i] = new WhiteBag();
+                    blackBags[i] = new BlackBag(i, whiteBags[i], rocks);
+                }
+                break;
+            } catch (FileNotFoundException e) {
+                myUserInterface.displayErrorMessage(e.getMessage() + "\nPlease re-enter the file locations.");
+            } catch (IOException e) {
+                myUserInterface.displayErrorMessage(e.getMessage());
+            } catch (InvalidRockWeightException e) {
+                myUserInterface.displayErrorMessage(e.getMessage());
+            }
+            
+        } while (true);
+
+        for (BlackBag bag : blackBags) {
+            System.out.println(bag.toString());
+        }
     }
 }
