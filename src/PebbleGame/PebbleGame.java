@@ -13,8 +13,11 @@ public class PebbleGame {
         }
 
         public void discardRock(Rock rock) {
-            bag.addRock(rock);
-            takeRock(); // !!!! WILL FLESH ALL OF THIS OUT AFTER TRAINING !!!!
+
+            bag.addRock(rock); //Adding the rock to a corresponding white bag
+
+            // TODO: Take another rock from the black bag while !empty
+            
         }
 
         public void drawRock() {
