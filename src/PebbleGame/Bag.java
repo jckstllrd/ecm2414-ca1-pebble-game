@@ -16,21 +16,41 @@ public class Bag {
     }
 
     /**
-     * WhiteBag
+     *  WhiteBag
      */
-    public class WhiteBag {
-    
+    public class WhiteBag extends Bag{
+
+        public WhiteBag(Bag paired) {
+
+            this.pairedBag = paired; // Pairs white to black bag for emptying
+        }
+
+        public void emptyBag() {
+            for(Rock rock : rocks) {
+                pairedBag.addRock(rock); // Adds rock to the black bag
+                
+                // TODO: Remove same rock from white bag 
+            }
+        }
+        
         
     }
     
     /**
      * BlackBack
      */
-    public class BlackBag {
-        
-        public BlackBag() {
+    public class BlackBag extends Bag{
 
+        public BlackBag(int[] rocksFile, Bag paired) {
+
+            this.pairedBag = paired; //Pairs black to white bag for when empty
+
+            for (int i = 0; i < rocksFile.length; i++) {
+                Rock rock = new Rock(rocksFile[i]); //Reads each element in rock file and creates rock
+                addRock(rock); // Adds rock to the bags rock list
+            }
         }
+        
         
     }
 }
