@@ -5,16 +5,16 @@ package PebbleGame;
  */
 public class WhiteBag extends Bag{
 
-    BlackBag asignedBlackBag;
+    BlackBag assignedBlackBag;
     int number;
 
     public WhiteBag() {
 
     }
 
-    public void asignBlackBag(int bagNumber, BlackBag asignedBlackBag) {
+    public void assignBlackBag(int bagNumber, BlackBag assignedBlackBag) {
         this.number = bagNumber;
-        this.asignedBlackBag = asignedBlackBag;
+        this.assignedBlackBag = assignedBlackBag;
     }
 
     @Override
