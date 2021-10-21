@@ -1,7 +1,6 @@
 package PebbleGame;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +14,6 @@ public class PebbleGame {
 
         Bag bag;
         int currentWeight;
-
 
         public void run() {
             
@@ -47,7 +45,8 @@ public class PebbleGame {
         }
         
     }
-
+    
+    
     private static Rock[] getRocksFromFile(String fileLocation, int numPlayers) throws FileNotFoundException, IOException, InvalidRockWeightException{
         BufferedReader br = new BufferedReader(new FileReader(fileLocation));
         String line;
@@ -71,19 +70,7 @@ public class PebbleGame {
         return rocks;
     }
 
-    public static void main(String[] args) throws IOException, InvalidRockWeightException {
-        UserInterface myUserInterface = new UserInterface();
-
-        myUserInterface.displayTitleMessage();
-
-        int numPlayers = myUserInterface.askNumPlayers();
-
-        String[] bagLocations = new String[3];
-
-        for (int i = 0; i < 3; i++) {
-            bagLocations[i] = myUserInterface.askBagLocation(i);
-        }
-
+    private static void createbags(UserInterface myUserInterface, String[] bagLocations, int numPlayers) {
         do {
             try {
                 for (int i = 0; i < bagLocations.length; i++) {
@@ -101,6 +88,22 @@ public class PebbleGame {
             }
             
         } while (true);
+    }
+
+    public static void main(String[] args) throws IOException, InvalidRockWeightException {
+        UserInterface myUserInterface = new UserInterface();
+
+        myUserInterface.displayTitleMessage();
+
+        int numPlayers = myUserInterface.askNumPlayers();
+
+        String[] bagLocations = new String[3];
+
+        for (int i = 0; i < 3; i++) {
+            bagLocations[i] = myUserInterface.askBagLocation(i);
+        }
+
+        createbags(myUserInterface, bagLocations, numPlayers);
 
         for (BlackBag bag : blackBags) {
             System.out.println(bag.toString());
