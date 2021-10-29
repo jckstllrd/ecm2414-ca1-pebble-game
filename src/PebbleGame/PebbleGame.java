@@ -4,49 +4,50 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 public class PebbleGame {
 
     static WhiteBag[] whiteBags = new WhiteBag[3];
     static BlackBag[] blackBags = new BlackBag[3];
 
-    class Player implements Runnable{
+    class Player implements Runnable {
 
-        Bag bag;
+        BlackBag blackBag;
         int currentWeight;
 
         public void run() {
-            
+
             /**
              * When game begins:
              * 
-             * Take 10 rocks from bag
-             * if not equal to 100:
-             *      discard a rock
-             *      take another rock (while bag not empty)
-             * if bag empty:
-             *      empty white bag into associated black bag
+             * Take 10 rocks from bag if not equal to 100: discard a rock take another rock
+             * (while bag not empty) if bag empty: empty white bag into associated black bag
              * 
-             * if equal to 100: 
-             *      you win
+             * if equal to 100: you win
              */
         }
 
         public void discardRock(Rock rock) {
 
-            bag.addRock(rock); //Adding the rock to a corresponding white bag
+            // Adding the rock to a corresponding white bag
 
             // TODO: Take another rock from the black bag while !empty
-            
+
         }
 
         public void drawRock() {
-
+            Random rand;
+            // int random = rand.nextInt(blackBag.rocks.length);
+            // Rock newRock = blackBag.rocks[random];
+            // Need to then remove rock from the bag
+            // return newRock;
         }
-        
+
     }
-    
-    private static Rock[] getRocksFromFile(String fileLocation, int numPlayers) throws FileNotFoundException, IOException, InvalidRockWeightException{
+
+    private static Rock[] getRocksFromFile(String fileLocation, int numPlayers)
+            throws FileNotFoundException, IOException, InvalidRockWeightException {
         BufferedReader br = new BufferedReader(new FileReader(fileLocation));
         String line;
         String[] weights = {};
@@ -85,7 +86,7 @@ public class PebbleGame {
             } catch (InvalidRockWeightException e) {
                 myUserInterface.displayErrorMessage(e.getMessage());
             }
-            
+
         } while (true);
     }
 
