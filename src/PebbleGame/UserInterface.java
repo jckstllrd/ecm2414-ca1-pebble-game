@@ -32,7 +32,7 @@ public class UserInterface {
             } catch (NumberFormatException e) {
                 System.out.println("Error with given input, please enter a number not text.");
             } catch (InvalidInputException e) {
-                System.out.println("Error ith given input, please enter a number greater than 0.");
+                System.out.println("Error with given input, please enter a number greater than 0.");
             }
         } while (true);
     }

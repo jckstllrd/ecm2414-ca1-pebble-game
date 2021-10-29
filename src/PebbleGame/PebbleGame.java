@@ -46,7 +46,6 @@ public class PebbleGame {
         
     }
     
-    
     private static Rock[] getRocksFromFile(String fileLocation, int numPlayers) throws FileNotFoundException, IOException, InvalidRockWeightException{
         BufferedReader br = new BufferedReader(new FileReader(fileLocation));
         String line;
