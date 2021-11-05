@@ -25,12 +25,11 @@ public class PebbleGame {
              * (while bag not empty) if bag empty: empty white bag into associated black bag
              * 
              * if equal to 100: you win
-             * 
              */
 
             beginGame();
 
-            while (!hasWon()){
+            while (!hasWon()) {
                 discardRock();
                 Rock nextRock = drawRock();
                 rocks[rocks.length] = nextRock;
@@ -43,10 +42,9 @@ public class PebbleGame {
             for (Rock rock : rocks) {
                 totalWieght += rock.weight;
             }
-            if (totalWieght == 100){
+            if (totalWieght == 100) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -78,6 +76,7 @@ public class PebbleGame {
             blackBag.removeRock(nextRock);
             return nextRock;
         }
+
     }
 
     private static Rock[] getRocksFromFile(String fileLocation, int numPlayers)
@@ -120,6 +119,7 @@ public class PebbleGame {
             } catch (InvalidRockWeightException e) {
                 myUserInterface.displayErrorMessage(e.getMessage());
             }
+
         } while (true);
     }
 
@@ -141,5 +141,7 @@ public class PebbleGame {
         for (BlackBag bag : blackBags) {
             System.out.println(bag.toString());
         }
+        Thread p1 = new Thread();
+        p1.start();
     }
 }
