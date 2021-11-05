@@ -26,11 +26,14 @@ public class PebbleGame {
              * 
              * if equal to 100: you win
              * 
-             * Player must disgard a rock before taking one
              */
 
-            while (!hasWon()){
+            beginGame();
 
+            while (!hasWon()){
+                discardRock();
+                Rock nextRock = drawRock();
+                rocks[rocks.length] = nextRock;
             }
         }
 
@@ -49,9 +52,7 @@ public class PebbleGame {
         }
 
         private void beginGame() {
-            Random rand = new Random();
             for (int i = 0; i < 10; i++) {
-                int randomBag = rand.nextInt(blackBags.length);
                 Rock nextRock = this.drawRock();
                 rocks[i] = nextRock;
             }
@@ -77,7 +78,6 @@ public class PebbleGame {
             blackBag.removeRock(nextRock);
             return nextRock;
         }
-
     }
 
     private static Rock[] getRocksFromFile(String fileLocation, int numPlayers)
@@ -120,7 +120,6 @@ public class PebbleGame {
             } catch (InvalidRockWeightException e) {
                 myUserInterface.displayErrorMessage(e.getMessage());
             }
-
         } while (true);
     }
 
