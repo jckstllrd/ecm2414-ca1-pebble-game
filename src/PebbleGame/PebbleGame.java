@@ -13,6 +13,7 @@ public class PebbleGame {
 
     class Player implements Runnable {
 
+        Rock[] rocks = new Rock[10];
         int currentWeight;
 
         public void run() {
@@ -29,11 +30,10 @@ public class PebbleGame {
 
         public void beginGame() {
             Random rand = new Random();
-
             for (int i = 0; i < 10; i++) {
-
                 int randomBag = rand.nextInt(blackBags.length);
-                // Rock nextRock = blackBags[randomBag].takeRock();
+                Rock nextRock = blackBags[randomBag].takeRock();
+                rocks[i] = nextRock;
             }
         }
 
