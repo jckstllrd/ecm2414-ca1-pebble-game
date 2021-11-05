@@ -30,10 +30,14 @@ public class PebbleGame {
             beginGame();
 
             while (!hasWon()) {
+                System.out.println(Thread.currentThread().getName() + ": Discarding Rock");
                 discardRock();
+                System.out.println(Thread.currentThread().getName() + ": Getting new Rock");
                 Rock nextRock = drawRock();
                 rocks[rocks.length] = nextRock;
             }
+
+            System.out.println(Thread.currentThread().getName() + ": Has Won");
         }
 
         private Boolean hasWon() {
