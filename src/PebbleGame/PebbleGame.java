@@ -13,7 +13,6 @@ public class PebbleGame {
 
     class Player implements Runnable {
 
-        BlackBag blackBag;
         int currentWeight;
 
         public void run() {
@@ -26,6 +25,16 @@ public class PebbleGame {
              * 
              * if equal to 100: you win
              */
+        }
+
+        public void beginGame() {
+            Random rand = new Random();
+
+            for (int i = 0; i < 10; i++) {
+
+                int randomBag = rand.nextInt(blackBags.length);
+                // Rock nextRock = blackBags[randomBag].takeRock();
+            }
         }
 
         public void discardRock(Rock rock) {
