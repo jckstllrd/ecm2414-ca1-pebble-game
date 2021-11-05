@@ -1,7 +1,5 @@
 package PebbleGame;
 
-import java.util.Random;
-
 /**
  * BlackBack
  */
@@ -11,9 +9,14 @@ public class BlackBag extends Bag{
     Rock[] rocks;
     int number;
 
-    public Rock takeRock() {
-        int chosenRock
-        return chosenRock
+    public void removeRock(Rock deleteRock) {
+        Rock[] newRocks = new Rock[rocks.length-1];
+        for (int i = 0; i < newRocks.length; i++) {
+            if (rocks[i] != deleteRock) {
+                newRocks[i] = rocks[i];
+            }
+        }
+        rocks = newRocks;
     }
 
     public BlackBag(int bagNumber, WhiteBag assignedWhiteBag, Rock[] rocks) {
