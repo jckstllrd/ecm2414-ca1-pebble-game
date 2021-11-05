@@ -37,8 +37,13 @@ public class PebbleGame {
             }
         }
 
-        public void discardRock(Rock rock) {
+        public void discardRock() {
+            Random rand = new Random();
 
+            Rock[] newRocks = new Rock[rocks.length - 1];
+            for (int i = 0; i < newRocks.length; i++) {
+
+            }
             // Adding the rock to a corresponding white bag
 
             // TODO: Take another rock from the black bag while !empty
@@ -46,10 +51,10 @@ public class PebbleGame {
         }
 
         public void drawRock() {
-            Random rand;
-            // int random = rand.nextInt(blackBag.rocks.length);
-            // Rock newRock = blackBag.rocks[random];
-            // Need to then remove rock from the bag
+            Random rand = new Random();
+            BlackBag randomBag = blackBags[rand.nextInt(blackBags.length)];
+            Rock nextRock = randomBag.rocks[rand.nextInt(randomBag.rocks.length)];
+
             // return newRock;
         }
 
