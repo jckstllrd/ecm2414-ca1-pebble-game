@@ -93,7 +93,8 @@ public class PebbleGame {
         }
         br.close();
 
-        if (numPlayers * 11 < weights.length) {
+        if (numPlayers * 11 > weights.length) {
+            System.out.println(weights.length);
             throw new InvalidRockWeightException("File doesn't have enough weights for number of players entered.");
         }
 
@@ -142,9 +143,10 @@ public class PebbleGame {
 
         createbags(myUserInterface, bagLocations, numPlayers);
 
-        for (BlackBag bag : blackBags) {
-            System.out.println(bag.toString());
-        }
+        // for (BlackBag bag : blackBags) {
+        //     System.out.println(bag.toString());
+        // }
+        
         Thread p1 = new Thread();
         p1.start();
     }
