@@ -25,19 +25,39 @@ public class PebbleGame {
              * (while bag not empty) if bag empty: empty white bag into associated black bag
              * 
              * if equal to 100: you win
+             * 
+             * Player must disgard a rock before taking one
              */
+
+            while (!hasWon()){
+
+            }
         }
 
-        public void beginGame() {
+        private Boolean hasWon() {
+            int totalWieght = 0;
+
+            for (Rock rock : rocks) {
+                totalWieght += rock.weight;
+            }
+            if (totalWieght == 100){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        private void beginGame() {
             Random rand = new Random();
             for (int i = 0; i < 10; i++) {
                 int randomBag = rand.nextInt(blackBags.length);
-                Rock nextRock = blackBags[randomBag].takeRock();
+                Rock nextRock = this.drawRock();
                 rocks[i] = nextRock;
             }
         }
 
-        public void discardRock() {
+        private void discardRock() {
             Random rand = new Random();
 
             Rock[] newRocks = new Rock[rocks.length - 1];
@@ -50,12 +70,12 @@ public class PebbleGame {
 
         }
 
-        public void drawRock() {
+        private Rock drawRock() {
             Random rand = new Random();
-            BlackBag randomBag = blackBags[rand.nextInt(blackBags.length)];
-            Rock nextRock = randomBag.rocks[rand.nextInt(randomBag.rocks.length)];
-
-            // return newRock;
+            BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
+            Rock nextRock = blackBag.rocks[rand.nextInt(blackBag.rocks.length)];
+            blackBag.removeRock(nextRock);
+            return nextRock;
         }
 
     }
