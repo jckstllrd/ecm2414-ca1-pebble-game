@@ -6,7 +6,7 @@ package PebbleGame;
 public class WhiteBag extends Bag {
 
     BlackBag assignedBlackBag;
-    Rock[] rocks = new Rock[0];
+    Rock[] rocks = {};
     int number;
 
     public WhiteBag() {
@@ -15,7 +15,9 @@ public class WhiteBag extends Bag {
 
     public void addToWhiteBag(Rock newRock) {
         Rock[] newRocks = new Rock[rocks.length + 1];
-        newRocks[rocks.length + 1] = newRock;
+        System.out.println("Adding rock to white bag");
+        newRocks[rocks.length] = newRock;
+        rocks = newRocks;
     }
 
     public void drainWhiteBag() {

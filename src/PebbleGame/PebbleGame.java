@@ -33,16 +33,16 @@ public class PebbleGame {
             System.out.println(Arrays.toString(blackBags[0].rocks));
 
             while (!hasWon()) {
-                System.out.println("Rock length is" + rocks.length);
+
                 System.out.println(Thread.currentThread().getName() + ": Discarding Rock");
 
                 discardRock();
-                System.out.println("rock length is" + rocks.length);
 
                 System.out.println(Thread.currentThread().getName() + ": Getting new Rock");
 
                 addRock(drawRock());
-                System.out.println("rock length is" + rocks.length);
+
+                System.out.println(Arrays.toString(rocks));
 
             }
 
@@ -84,7 +84,7 @@ public class PebbleGame {
             Random rand = new Random();
             int index = rand.nextInt(rocks.length);
             Rock randRock = rocks[index];
-            System.out.println("The rock to be deleted is: " + randRock.weight);
+
             Rock[] newRocks = new Rock[rocks.length - 1];
             for (int i = 0, k = 0; i < rocks.length; i++) {
                 if (i == index) {
@@ -100,10 +100,12 @@ public class PebbleGame {
             Random rand = new Random();
 
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
+
             if (blackBag.rocks.length == 0) {
+
                 blackBag.assignedWhiteBag.drainWhiteBag();
             }
-            System.out.println("The size of the black bag is: " + blackBag.rocks.length);
+
             int index = rand.nextInt(blackBag.rocks.length);
             Rock nextRock = blackBag.rocks[index];
             blackBag.removeRock(index);
