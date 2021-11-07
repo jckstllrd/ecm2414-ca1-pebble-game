@@ -1,5 +1,7 @@
 package PebbleGame;
 
+import java.util.Arrays;
+
 /**
  * BlackBack
  */
@@ -11,6 +13,9 @@ public class BlackBag extends Bag {
 
     public void refillBag(Rock newRock) {
         Rock[] newRocks = new Rock[rocks.length + 1];
+        for (int i = 0; i < rocks.length; i++) {
+            newRocks[i] = rocks[i];
+        }
         newRocks[rocks.length] = newRock;
         rocks = newRocks;
     }
@@ -23,8 +28,9 @@ public class BlackBag extends Bag {
             }
             newRocks[k++] = rocks[i];
         }
+
         Rock removedRock = rocks[index];
-        System.out.println("Adding to white bag from black bag side");
+
         assignedWhiteBag.addToWhiteBag(removedRock);
         rocks = newRocks;
     }

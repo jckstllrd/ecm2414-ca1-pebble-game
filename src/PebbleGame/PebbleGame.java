@@ -34,15 +34,9 @@ public class PebbleGame {
 
             while (!hasWon()) {
 
-                System.out.println(Thread.currentThread().getName() + ": Discarding Rock");
-
                 discardRock();
 
-                System.out.println(Thread.currentThread().getName() + ": Getting new Rock");
-
                 addRock(drawRock());
-
-                System.out.println(Arrays.toString(rocks));
 
             }
 
@@ -83,7 +77,6 @@ public class PebbleGame {
         public void discardRock() {
             Random rand = new Random();
             int index = rand.nextInt(rocks.length);
-            Rock randRock = rocks[index];
 
             Rock[] newRocks = new Rock[rocks.length - 1];
             for (int i = 0, k = 0; i < rocks.length; i++) {

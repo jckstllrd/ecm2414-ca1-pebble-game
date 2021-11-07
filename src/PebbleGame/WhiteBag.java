@@ -15,7 +15,9 @@ public class WhiteBag extends Bag {
 
     public void addToWhiteBag(Rock newRock) {
         Rock[] newRocks = new Rock[rocks.length + 1];
-        System.out.println("Adding rock to white bag");
+        for (int i = 0; i < rocks.length; i++) {
+            newRocks[i] = rocks[i];
+        }
         newRocks[rocks.length] = newRock;
         rocks = newRocks;
     }
@@ -23,6 +25,7 @@ public class WhiteBag extends Bag {
     public void drainWhiteBag() {
         Rock[] newRocks = new Rock[0];
         for (int i = 0; i < rocks.length; i++) {
+
             assignedBlackBag.refillBag(rocks[i]);
         }
         rocks = newRocks;
