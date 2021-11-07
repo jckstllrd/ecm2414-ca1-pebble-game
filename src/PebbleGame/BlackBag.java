@@ -9,6 +9,12 @@ public class BlackBag extends Bag {
     Rock[] rocks;
     int number;
 
+    public void refillBag(Rock newRock) {
+        Rock[] newRocks = new Rock[rocks.length + 1];
+        newRocks[rocks.length + 1] = newRock;
+        rocks = newRocks;
+    }
+
     public void removeRock(int index) {
         Rock[] newRocks = new Rock[rocks.length - 1];
         for (int i = 0, k = 0; i < rocks.length; i++) {
@@ -17,6 +23,8 @@ public class BlackBag extends Bag {
             }
             newRocks[k++] = rocks[i];
         }
+        Rock removedRock = rocks[index];
+        assignedWhiteBag.addToWhiteBag(removedRock);
         rocks = newRocks;
     }
 

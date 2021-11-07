@@ -1,15 +1,29 @@
 package PebbleGame;
 
 /**
- *  WhiteBag
+ * WhiteBag
  */
-public class WhiteBag extends Bag{
+public class WhiteBag extends Bag {
 
     BlackBag assignedBlackBag;
+    Rock[] rocks = new Rock[0];
     int number;
 
     public WhiteBag() {
 
+    }
+
+    public void addToWhiteBag(Rock newRock) {
+        Rock[] newRocks = new Rock[rocks.length + 1];
+        newRocks[rocks.length + 1] = newRock;
+    }
+
+    public void drainWhiteBag() {
+        Rock[] newRocks = new Rock[0];
+        for (int i = 0; i < rocks.length; i++) {
+            assignedBlackBag.refillBag(rocks[i]);
+        }
+        rocks = newRocks;
     }
 
     public void assignBlackBag(int bagNumber, BlackBag assignedBlackBag) {

@@ -100,6 +100,9 @@ public class PebbleGame {
             Random rand = new Random();
 
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
+            if (blackBag.rocks.length == 0) {
+                blackBag.assignedWhiteBag.drainWhiteBag();
+            }
             System.out.println("The size of the black bag is: " + blackBag.rocks.length);
             int index = rand.nextInt(blackBag.rocks.length);
             Rock nextRock = blackBag.rocks[index];
