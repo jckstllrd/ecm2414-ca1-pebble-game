@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 public class PebbleGame {
@@ -26,29 +27,44 @@ public class PebbleGame {
              * 
              * if equal to 100: you win
              */
-
+            System.out.println(Arrays.toString(blackBags[0].rocks));
             beginGame();
+            System.out.println(Arrays.toString(rocks));
 
             while (!hasWon()) {
                 System.out.println(Thread.currentThread().getName() + ": Discarding Rock");
+                System.out.println("Rock length is" + rocks.length);
                 discardRock();
+
                 System.out.println(Thread.currentThread().getName() + ": Getting new Rock");
-                Rock nextRock = drawRock();
-                rocks[rocks.length] = nextRock;
+                System.out.println("rock length is" + rocks.length);
+                addRock(drawRock());
+                System.out.println(Arrays.toString(rocks));
             }
 
             System.out.println(Thread.currentThread().getName() + ": Has Won");
+        }
+
+        public void addRock(Rock newRock) {
+            Rock[] newRocks = new Rock[rocks.length + 1];
+            for (int i = 0; i < rocks.length; i++) {
+                newRocks[i] = rocks[i];
+            }
+            newRocks[10] = newRock;
+            rocks = newRocks;
         }
 
         private Boolean hasWon() {
             int totalWieght = 0;
 
             for (Rock rock : rocks) {
+                System.out.println(rock.weight);
                 totalWieght += rock.weight;
             }
             if (totalWieght == 100) {
                 return true;
             } else {
+                System.out.println("Not equal to 100");
                 return false;
             }
         }
@@ -89,7 +105,12 @@ public class PebbleGame {
         String line;
         String[] weights = {};
         while ((line = br.readLine()) != null) {
-            weights = line.split(",");
+            if (line.contains(" ")) {
+                weights = line.split(" |\\,");
+            } else {
+                weights = line.split(",");
+            }
+
         }
         br.close();
 
