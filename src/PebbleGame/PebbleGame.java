@@ -30,16 +30,20 @@ public class PebbleGame {
             System.out.println(Arrays.toString(blackBags[0].rocks));
             beginGame();
             System.out.println(Arrays.toString(rocks));
+            System.out.println(Arrays.toString(blackBags[0].rocks));
 
             while (!hasWon()) {
-                System.out.println(Thread.currentThread().getName() + ": Discarding Rock");
                 System.out.println("Rock length is" + rocks.length);
+                System.out.println(Thread.currentThread().getName() + ": Discarding Rock");
+
                 discardRock();
+                System.out.println("rock length is" + rocks.length);
 
                 System.out.println(Thread.currentThread().getName() + ": Getting new Rock");
-                System.out.println("rock length is" + rocks.length);
+
                 addRock(drawRock());
-                System.out.println(Arrays.toString(rocks));
+                System.out.println("rock length is" + rocks.length);
+
             }
 
             System.out.println(Thread.currentThread().getName() + ": Has Won");
@@ -50,7 +54,7 @@ public class PebbleGame {
             for (int i = 0; i < rocks.length; i++) {
                 newRocks[i] = rocks[i];
             }
-            newRocks[10] = newRock;
+            newRocks[9] = newRock;
             rocks = newRocks;
         }
 
@@ -58,13 +62,12 @@ public class PebbleGame {
             int totalWieght = 0;
 
             for (Rock rock : rocks) {
-                System.out.println(rock.weight);
                 totalWieght += rock.weight;
             }
             if (totalWieght == 100) {
                 return true;
             } else {
-                System.out.println("Not equal to 100");
+                System.out.println("Not equal to 100, weight is: " + totalWieght);
                 return false;
             }
         }
@@ -79,21 +82,28 @@ public class PebbleGame {
         // Does not interact with black bag
         public void discardRock() {
             Random rand = new Random();
-            Rock randRock = rocks[rand.nextInt(rocks.length)];
-            Rock[] newRocks = new Rock[rocks.length];
-            for (int i = 0; i < newRocks.length; i++) {
-                if (rocks[i] != randRock) {
-                    newRocks[i] = rocks[i];
+            int index = rand.nextInt(rocks.length);
+            Rock randRock = rocks[index];
+            System.out.println("The rock to be deleted is: " + randRock.weight);
+            Rock[] newRocks = new Rock[rocks.length - 1];
+            for (int i = 0, k = 0; i < rocks.length; i++) {
+                if (i == index) {
+                    continue;
                 }
+
+                newRocks[k++] = rocks[i];
             }
             rocks = newRocks;
         }
 
         private Rock drawRock() {
             Random rand = new Random();
+
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
-            Rock nextRock = blackBag.rocks[rand.nextInt(blackBag.rocks.length)];
-            blackBag.removeRock(nextRock);
+            System.out.println("The size of the black bag is: " + blackBag.rocks.length);
+            int index = rand.nextInt(blackBag.rocks.length);
+            Rock nextRock = blackBag.rocks[index];
+            blackBag.removeRock(index);
             return nextRock;
         }
 
