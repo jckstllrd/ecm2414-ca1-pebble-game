@@ -11,7 +11,7 @@ public class PebbleGame {
     static WhiteBag[] whiteBags = new WhiteBag[3];
     static BlackBag[] blackBags = new BlackBag[3];
 
-    class Player implements Runnable {
+    static class Player implements Runnable {
 
         Rock[] rocks = new Rock[10];
         int currentWeight;
@@ -144,10 +144,11 @@ public class PebbleGame {
         createbags(myUserInterface, bagLocations, numPlayers);
 
         // for (BlackBag bag : blackBags) {
-        //     System.out.println(bag.toString());
+        // System.out.println(bag.toString());
         // }
-        
-        Thread p1 = new Thread();
+
+        Player player = new Player();
+        Thread p1 = new Thread(player);
         p1.start();
     }
 }
