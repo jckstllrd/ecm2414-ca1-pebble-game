@@ -172,6 +172,8 @@ public class PebbleGame {
             } catch (InvalidRockWeightException e) {
                 myUserInterface.displayErrorMessage(e.getMessage());
                 return false;
+            } catch (Exception e) {
+                return false;
             }
 
         } while (true);
