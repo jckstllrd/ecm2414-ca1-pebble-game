@@ -28,10 +28,7 @@ public class BlackBag extends Bag {
             }
             newRocks[k++] = rocks[i];
         }
-
-        Rock removedRock = rocks[index];
-
-        assignedWhiteBag.addToWhiteBag(removedRock);
+        
         rocks = newRocks;
     }
 
