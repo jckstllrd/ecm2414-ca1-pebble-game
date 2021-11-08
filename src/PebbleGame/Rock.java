@@ -11,9 +11,9 @@ public class Rock {
     public Rock(int weight) {
         this.weight = weight;
     }
-
+    
     @Override
     public String toString() {
-        return "\n   ---\n   Rock\n   Weight: " + weight;
+        return String.valueOf(weight);
     }
 }
