@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.atomic.*;
 
 public class PebbleGame {
 
@@ -18,7 +19,7 @@ public class PebbleGame {
         int currentWeight;
 
         public void run() {
-
+            System.out.println(Thread.currentThread().getName() + ": Has Started");
             /**
              * When game begins:
              * 
@@ -27,15 +28,14 @@ public class PebbleGame {
              * 
              * if equal to 100: you win
              */
-            System.out.println(Arrays.toString(blackBags[0].rocks));
+
             beginGame();
-            System.out.println(Arrays.toString(rocks));
-            System.out.println(Arrays.toString(blackBags[0].rocks));
+            System.out.println(Thread.currentThread().getName() + ": Rocks are " + Arrays.toString(rocks));
 
             while (!hasWon()) {
-
+                System.out.println("Disgarding rock");
                 discardRock();
-
+                System.out.println("Drawing rock");
                 addRock(drawRock());
 
             }
@@ -43,7 +43,7 @@ public class PebbleGame {
             System.out.println(Thread.currentThread().getName() + ": Has Won");
         }
 
-        public void addRock(Rock newRock) {
+        synchronized public void addRock(Rock newRock) {
             Rock[] newRocks = new Rock[rocks.length + 1];
             for (int i = 0; i < rocks.length; i++) {
                 newRocks[i] = rocks[i];
@@ -61,20 +61,22 @@ public class PebbleGame {
             if (totalWieght == 100) {
                 return true;
             } else {
-                System.out.println("Not equal to 100, weight is: " + totalWieght);
+
                 return false;
             }
         }
 
-        private void beginGame() {
+        synchronized private void beginGame() {
+
             for (int i = 0; i < 10; i++) {
                 Rock nextRock = this.drawRock();
                 rocks[i] = nextRock;
             }
+            System.out.println(Thread.currentThread().getName() + "Has collected their starting rocks");
         }
 
         // Does not interact with black bag
-        public void discardRock() {
+        synchronized public void discardRock() {
             Random rand = new Random();
             int index = rand.nextInt(rocks.length);
 
@@ -89,7 +91,7 @@ public class PebbleGame {
             rocks = newRocks;
         }
 
-        private Rock drawRock() {
+        synchronized private Rock drawRock() {
             Random rand = new Random();
 
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
@@ -175,9 +177,17 @@ public class PebbleGame {
         // for (BlackBag bag : blackBags) {
         // System.out.println(bag.toString());
         // }
+        Player[] players = new Player[numPlayers];
+        Thread[] threads = new Thread[numPlayers];
+        for (int i = 0; i < numPlayers; i++) {
+            players[i] = new Player();
+        }
+        for (int i = 0; i < players.length; i++) {
+            threads[i] = new Thread(players[i]);
+        }
+        for (int i = 0; i < threads.length; i++) {
+            threads[i].start();
+        }
 
-        Player player = new Player();
-        Thread p1 = new Thread(player);
-        p1.start();
     }
 }
