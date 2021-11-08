@@ -77,6 +77,8 @@ public class PebbleGame {
 
                 newRocks[k++] = rocks[i];
             }
+            Rock addToWhite = rocks[index];
+            // bagHandler(addToWhite);
             rocks = newRocks;
         }
 
