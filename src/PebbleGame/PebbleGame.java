@@ -17,9 +17,11 @@ public class PebbleGame {
 
         private Rock[] rocks = new Rock[10];
         private String name;
+        private OutputFileHandler outputFileHandler;
 
         public Player(int index) {
             this.name = "player" + String.valueOf(index);
+            outputFileHandler = new OutputFileHandler(name);
         }
 
         public void run() {
@@ -34,20 +36,17 @@ public class PebbleGame {
              */
 
             beginGame();
-            System.out.println(name + ": Rocks are " + Arrays.toString(rocks));
 
             while (!hasWon()) {
-                System.out.println("Disgarding rock");
                 discardRock();
-                System.out.println("Drawing rock");
-                addRock(drawRock());
+                addRock(drawRock(false));
             }
             System.out.println(name + ": Has Won");
         }
 
         synchronized private void beginGame() {
             for (int i = 0; i < 10; i++) {
-                Rock nextRock = this.drawRock();
+                Rock nextRock = this.drawRock(true);
                 rocks[i] = nextRock;
             }
             System.out.println(name + "Has collected their starting rocks");
@@ -80,7 +79,8 @@ public class PebbleGame {
                 newRocks[k++] = rocks[i];
             }
             BagHandler.getNextDisgardBag().addToWhiteBag(rocks[index]);
-            System.out.println("Disguarding to: WhiteBag" + BagHandler.getNextDisgardBag().number);
+            outputFileHandler.writeDiscardRockMessage(rocks[index].weight, BagHandler.getNextDisgardBag().number);
+            outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
 
@@ -91,9 +91,11 @@ public class PebbleGame {
             }
             newRocks[9] = newRock;
             rocks = newRocks;
+
+            outputFileHandler.writeAllRocksMessage(Arrays.toString(rocks));
         }
 
-        synchronized private Rock drawRock() {
+        synchronized private Rock drawRock(Boolean isSetup) {
             Random rand = new Random();
 
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
@@ -112,11 +114,15 @@ public class PebbleGame {
             }
 
             blackBag.removeRock(index);
+
+            if (!isSetup)  {
+                outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.number);
+            } 
+
             BagHandler.updateNextDisguard(blackBag.assignedWhiteBag);
-            System.out.println("Setiing Next disguard Bag to: WhiteBag"+blackBag.assignedWhiteBag.number);
+            System.out.println("Setting Next disguard Bag to: WhiteBag"+blackBag.assignedWhiteBag.number);
             return nextRock;
         }
-
     }
 
     private static Rock[] getRocksFromFile(String fileLocation, int numPlayers)
@@ -173,44 +179,41 @@ public class PebbleGame {
     }
 
     public static void main(String[] args) throws IOException, InvalidRockWeightException {
-        // UserInterface myUserInterface = new UserInterface();
+        UserInterface myUserInterface = new UserInterface();
 
-        // myUserInterface.displayTitleMessage();
+        myUserInterface.displayTitleMessage();
 
-        // int numPlayers = myUserInterface.askNumPlayers();
+        int numPlayers = myUserInterface.askNumPlayers();
 
-        // String[] bagLocations = new String[3];
+        String[] bagLocations = new String[3];
 
-        // for (int i = 0; i < 3; i++) {
-        //     bagLocations[i] = myUserInterface.askBagLocation(i);
+        for (int i = 0; i < 3; i++) {
+            bagLocations[i] = myUserInterface.askBagLocation(i);
+        }
+
+        Boolean success = createbags(myUserInterface, bagLocations, numPlayers);
+
+        while (!success) {
+            for (int i = 0; i < 3; i++) {
+                bagLocations[i] = myUserInterface.askBagLocation(i);
+            }
+            success = createbags(myUserInterface, bagLocations, numPlayers);
+        }
+
+        // for (BlackBag bag : blackBags) {
+        // System.out.println(bag.toString());
         // }
 
-        // Boolean success = createbags(myUserInterface, bagLocations, numPlayers);
-
-        // while (!success) {
-        //     for (int i = 0; i < 3; i++) {
-        //         bagLocations[i] = myUserInterface.askBagLocation(i);
-        //     }
-        //     success = createbags(myUserInterface, bagLocations, numPlayers);
-        // }
-
-        // // for (BlackBag bag : blackBags) {
-        // // System.out.println(bag.toString());
-        // // }
-
-        // Player[] players = new Player[numPlayers];
-        // Thread[] threads = new Thread[numPlayers];
-        // for (int i = 0; i < numPlayers; i++) {
-        //     players[i] = new Player(i);
-        // }
-        // for (int i = 0; i < players.length; i++) {
-        //     threads[i] = new Thread(players[i]);
-        // }
-        // for (int i = 0; i < threads.length; i++) {
-        //     threads[i].start();
-        // }
-
-        OutputFileHandler myFileHandler = new OutputFileHandler("player1");
-
+        Player[] players = new Player[numPlayers];
+        Thread[] threads = new Thread[numPlayers];
+        for (int i = 0; i < numPlayers; i++) {
+            players[i] = new Player(i);
+        }
+        for (int i = 0; i < players.length; i++) {
+            threads[i] = new Thread(players[i]);
+        }
+        for (int i = 0; i < threads.length; i++) {
+            threads[i].start();
+        }
     }
 }
