@@ -101,6 +101,12 @@ public class PebbleGame {
 
             int index = rand.nextInt(blackBag.rocks.length);
             Rock nextRock = blackBag.rocks[index];
+
+            if (nextRock == null) {
+                System.out.println(Arrays.toString(blackBag.rocks));
+                System.out.println("This rock has a value of null");
+            }
+
             blackBag.removeRock(index);
             return nextRock;
         }
