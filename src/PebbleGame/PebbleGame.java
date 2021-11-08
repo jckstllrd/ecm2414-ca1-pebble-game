@@ -43,13 +43,12 @@ public class PebbleGame {
             System.out.println(Thread.currentThread().getName() + ": Has Won");
         }
 
-        synchronized public void addRock(Rock newRock) {
-            Rock[] newRocks = new Rock[rocks.length + 1];
-            for (int i = 0; i < rocks.length; i++) {
-                newRocks[i] = rocks[i];
+        synchronized private void beginGame() {
+            for (int i = 0; i < 10; i++) {
+                Rock nextRock = this.drawRock();
+                rocks[i] = nextRock;
             }
-            newRocks[9] = newRock;
-            rocks = newRocks;
+            System.out.println(Thread.currentThread().getName() + "Has collected their starting rocks");
         }
 
         private Boolean hasWon() {
@@ -66,16 +65,6 @@ public class PebbleGame {
             }
         }
 
-        synchronized private void beginGame() {
-
-            for (int i = 0; i < 10; i++) {
-                Rock nextRock = this.drawRock();
-                rocks[i] = nextRock;
-            }
-            System.out.println(Thread.currentThread().getName() + "Has collected their starting rocks");
-        }
-
-        // Does not interact with black bag
         synchronized public void discardRock() {
             Random rand = new Random();
             int index = rand.nextInt(rocks.length);
@@ -88,6 +77,15 @@ public class PebbleGame {
 
                 newRocks[k++] = rocks[i];
             }
+            rocks = newRocks;
+        }
+
+        synchronized public void addRock(Rock newRock) {
+            Rock[] newRocks = new Rock[rocks.length + 1];
+            for (int i = 0; i < rocks.length; i++) {
+                newRocks[i] = rocks[i];
+            }
+            newRocks[9] = newRock;
             rocks = newRocks;
         }
 
