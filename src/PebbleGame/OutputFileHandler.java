@@ -1,21 +1,27 @@
 package PebbleGame;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class OutputFileHandler {
 
     private String fileName;
+    private String playerName;
 
     public OutputFileHandler(String playerName) {
+        this.playerName = playerName;
         fileName = playerName+"_output.txt";
 
         File myFile = new File(fileName);
         try {
-            int i = 0;
+            int i = 1;
             while(!myFile.createNewFile()){
                 i++;
-                fileName = fileName + "v" + i;
+                fileName = playerName + "_v" + i + "_output.txt";
+                myFile = new File(fileName);
             }
         } catch (IOException e) {
             System.out.println("Error Creating file for "+fileName);
@@ -23,21 +29,30 @@ public class OutputFileHandler {
     }
 
     private void writeMessageToFile(String message) {
+        try {
+            FileWriter myFileWriter = new FileWriter(fileName, true);
+            BufferedWriter myBufferedWriter = new BufferedWriter(myFileWriter);
+            PrintWriter myPrintWriter = new PrintWriter(myBufferedWriter);
 
+            myPrintWriter.println(message);
+            myPrintWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error write to file for "+fileName);
+        }
     }
 
-    public void writeDrawnRockMessage(String PlayerName, int rockWeight, String bagName) {
-        String message = String.format("%s has drawn a %s from %s", PlayerName, rockWeight, bagName);
+    public void writeDrawnRockMessage(int rockWeight, int bagNum) {
+        String message = String.format("%s has drawn a %d from BlackBag%d", playerName, rockWeight, bagNum);
         writeMessageToFile(message);
     }
 
-    // Currently working on this
-
-    public void wirteDiscardRockMessage(String playerName, int rockWeight, ) {
-        String message = String.format("%s has discarded a %s to %s", args)
+    public void writeDiscardRockMessage(int rockWeight, int bagNum) {
+        String message = String.format("%s has discarded a %d to WhiteBag%d", playerName, rockWeight, bagNum);
+        writeMessageToFile(message);
     }
 
-    public void writeAllRocksMessage() {
-        
+    public void writeAllRocksMessage(String rocks) {
+        String message = String.format("%s hand is %s", playerName, rocks);
+        writeMessageToFile(message);
     }
 }
