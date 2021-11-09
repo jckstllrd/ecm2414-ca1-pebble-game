@@ -39,14 +39,14 @@ public class PebbleGame {
             beginGame();
 
             while (!hasWon()) {
-                playGame();
+                discardRock();
+                addRock(drawRock(false));
             }
             System.out.println(name + ": Has Won");
         }
 
         private synchronized void playGame() {
-            discardRock();
-            addRock(drawRock(false));
+
         }
 
         private synchronized void beginGame() {
@@ -85,8 +85,7 @@ public class PebbleGame {
             }
             nextDiscardBag.addToWhiteBag(rocks[index]);
             // BagHandler.getNextDisgardBag().addToWhiteBag(rocks[index]);
-            System.out.println(
-                    "Adding to White bag " + nextDiscardBag.number + ", size is: " + nextDiscardBag.rocks.length);
+
             outputFileHandler.writeDiscardRockMessage(rocks[index].weight, nextDiscardBag.number);
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
@@ -105,30 +104,30 @@ public class PebbleGame {
 
         private synchronized Rock drawRock(Boolean isSetup) {
             Random rand = new Random();
-            int length = blackBags.length;
 
-            BlackBag blackBag = blackBags[rand.nextInt(length)];
+            BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
 
-            if (length == 0) {
-                System.out.println("Black bag " + blackBag.number + " is empty!");
-                System.out.println("The white bag contains " + Arrays.toString(blackBag.assignedWhiteBag.rocks));
+            if (blackBag.rocks.length == 0) {
+                // System.out.println("Black bag " + blackBag.number + " is empty!");
+                // System.out.println("The white bag contains " +
+                // Arrays.toString(blackBag.assignedWhiteBag.rocks));
                 blackBag.assignedWhiteBag.drainWhiteBag();
             }
 
-            int index = rand.nextInt(length);
+            int index = rand.nextInt(blackBag.rocks.length);
+
             Rock nextRock = blackBag.rocks[index];
 
-            if (nextRock == null) {
-                System.out.println(Arrays.toString(blackBag.rocks));
-                System.out.println("This rock has a value of null");
-            }
+            /**
+             * if (nextRock == null) { System.out.println(Arrays.toString(blackBag.rocks));
+             * System.out.println("This rock has a value of null"); }
+             **/
 
             blackBag.removeRock(index);
 
             if (!isSetup) {
                 outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.number);
             }
-            System.out.println("Taking from Black bag " + blackBag.number + ", size is: " + length);
 
             this.nextDiscardBag = blackBag.assignedWhiteBag;
             // BagHandler.updateNextDisguard(blackBag.assignedWhiteBag);
