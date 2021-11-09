@@ -169,7 +169,9 @@ public class PebbleGame {
                 // System.out.println("Black bag " + blackBag.number + " is empty!");
                 // System.out.println("The white bag contains " +
                 // Arrays.toString(blackBag.assignedWhiteBag.rocks));
+                System.out.println("Refilling bag " + blackBag.number);
                 blackBag.assignedWhiteBag.drainWhiteBag();
+                System.out.println(Arrays.toString(blackBag.rocks));
             }
             System.out.println("black bag contains" + amountRocks.get());
             int index = rand.nextInt(amountRocks.get());
