@@ -29,7 +29,7 @@ public class WhiteBag extends Bag {
      * Bag's constructor.
      */
     public WhiteBag() {
-        super();
+        rocks = new Rock[] {};
     }
 
     /**
