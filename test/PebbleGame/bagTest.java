@@ -1,10 +1,24 @@
-import java.beans.Transient;
+package PebbleGame;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class TestBag{
-    
+import org.junit.jupiter.api.Test;
+
+class TestBag {
+
+    Bag testBag;
+    Rock testRock;
+
+    @BeforeEach
+    void setUp() {
+        testBag = new Bag();
+        testRock = new Rock(10);
+    }
+
     @Test
-
+    void testAddRock() {
+        Rock[] testRocks = {testRock};
+        testBag.addRock(testRock);
+        assertEqual(testBag.getRocks(), testRocks);
+    }
 }
