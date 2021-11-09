@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.atomic.*;
 
 /**
  * This class is the main controller for the entire platform and has a nested for each player in
@@ -41,10 +40,14 @@ public class PebbleGame {
          * This is the players name.
          */
         private String name;
+<<<<<<< HEAD
 
         /**
          * This is the output file handler for the player.
          */
+=======
+        private WhiteBag nextDiscardBag;
+>>>>>>> 8130f735e8b8e85995d2f3caae4577af33969e10
         private OutputFileHandler outputFileHandler;
 
         /**
@@ -76,17 +79,11 @@ public class PebbleGame {
             beginGame();
 
             while (!hasWon()) {
-                playGame();
+                discardRock();
+                addRock(drawRock(false));
             }
             System.out.println(name + ": Has Won");
-        }
-
-        /**
-         * This method is used to discard and draw a rock.
-         */
-        private synchronized void playGame() {
-            discardRock();
-            addRock(drawRock(false));
+            System.exit(0);
         }
 
         /**
@@ -107,12 +104,12 @@ public class PebbleGame {
          * @return a boolean value true or false depending if they have won.
          */
         private Boolean hasWon() {
-            int totalWieght = 0;
+            int totalWeight = 0;
 
             for (Rock rock : rocks) {
-                totalWieght += rock.weight;
+                totalWeight += rock.weight;
             }
-            if (totalWieght == 100) {
+            if (totalWeight == 800) {
                 return true;
             } else {
 
@@ -135,10 +132,17 @@ public class PebbleGame {
 
                 newRocks[k++] = rocks[i];
             }
+<<<<<<< HEAD
             BagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
             System.out.println("Adding to White bag " + BagHandler.getNextDiscardBag().number + ", size is: "
                     + BagHandler.getNextDiscardBag().rocks.length);
             outputFileHandler.writeDiscardRockMessage(rocks[index].weight, BagHandler.getNextDiscardBag().number);
+=======
+            nextDiscardBag.addToWhiteBag(rocks[index]);
+            // BagHandler.getNextDisgardBag().addToWhiteBag(rocks[index]);
+
+            outputFileHandler.writeDiscardRockMessage(rocks[index].weight, nextDiscardBag.number);
+>>>>>>> 8130f735e8b8e85995d2f3caae4577af33969e10
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
@@ -167,32 +171,37 @@ public class PebbleGame {
          */
         private synchronized Rock drawRock(Boolean isSetup) {
             Random rand = new Random();
-            AtomicInteger length = new AtomicInteger(blackBags.length);
 
-            BlackBag blackBag = blackBags[rand.nextInt(length.get())];
+            BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
 
-            if (length.get() == 0) {
-                System.out.println("Black bag " + blackBag.number + " is empty!");
-                System.out.println("The white bag contains " + Arrays.toString(blackBag.assignedWhiteBag.rocks));
+            if (blackBag.rocks.length == 0) {
+                // System.out.println("Black bag " + blackBag.number + " is empty!");
+                // System.out.println("The white bag contains " +
+                // Arrays.toString(blackBag.assignedWhiteBag.rocks));
                 blackBag.assignedWhiteBag.drainWhiteBag();
             }
 
-            AtomicInteger index = new AtomicInteger(rand.nextInt(length.get()));
-            Rock nextRock = blackBag.rocks[index.get()];
+            int index = rand.nextInt(blackBag.rocks.length);
+
+            Rock nextRock = blackBag.rocks[index];
 
             if (nextRock == null) {
                 System.out.println(Arrays.toString(blackBag.rocks));
                 System.out.println("This rock has a value of null");
             }
 
-            blackBag.removeRock(index.get());
+            blackBag.removeRock(index);
 
             if (!isSetup) {
                 outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.number);
             }
-            System.out.println("Taking from Black bag " + blackBag.number + ", size is: " + length.get());
 
+<<<<<<< HEAD
             BagHandler.updateNextDiscard(blackBag.assignedWhiteBag);
+=======
+            this.nextDiscardBag = blackBag.assignedWhiteBag;
+            // BagHandler.updateNextDisguard(blackBag.assignedWhiteBag);
+>>>>>>> 8130f735e8b8e85995d2f3caae4577af33969e10
             return nextRock;
         }
     }
