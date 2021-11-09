@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class is the main controller for the entire platform and has a nested
@@ -105,7 +106,7 @@ public class PebbleGame {
             for (Rock rock : rocks) {
                 totalWeight += rock.weight;
             }
-            if (totalWeight == 800) {
+            if (totalWeight == 700) {
                 return true;
             } else {
 
@@ -116,7 +117,7 @@ public class PebbleGame {
         /**
          * This method is used to discrad a random rock from the players rocks.
          */
-        public synchronized void discardRock() {
+        public void discardRock() {
             Random rand = new Random();
             int index = rand.nextInt(rocks.length);
 
@@ -141,7 +142,7 @@ public class PebbleGame {
          * 
          * @param newRock The new rock which has been added.
          */
-        public synchronized void addRock(Rock newRock) {
+        public void addRock(Rock newRock) {
             Rock[] newRocks = new Rock[rocks.length + 1];
             for (int i = 0; i < rocks.length; i++) {
                 newRocks[i] = rocks[i];
@@ -159,19 +160,19 @@ public class PebbleGame {
          *                each player does.
          * @return nextRock the next rock
          */
-        private synchronized Rock drawRock(Boolean isSetup) {
+        private Rock drawRock(Boolean isSetup) {
             Random rand = new Random();
 
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
-
-            if (blackBag.rocks.length == 0) {
+            AtomicInteger amountRocks = new AtomicInteger(blackBag.rocks.length);
+            if (amountRocks.get() == 0) {
                 // System.out.println("Black bag " + blackBag.number + " is empty!");
                 // System.out.println("The white bag contains " +
                 // Arrays.toString(blackBag.assignedWhiteBag.rocks));
                 blackBag.assignedWhiteBag.drainWhiteBag();
             }
-
-            int index = rand.nextInt(blackBag.rocks.length);
+            System.out.println("black bag contains" + amountRocks.get());
+            int index = rand.nextInt(amountRocks.get());
 
             Rock nextRock = blackBag.rocks[index];
 

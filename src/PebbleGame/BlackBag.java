@@ -1,9 +1,12 @@
 package PebbleGame;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
- * This class is a chile class which extends the Bag class and is used to represent a Black Bag
- * in the game. It stores an asigned WhiteBag which is used to refill the black bag and has an array
- * of rocks in the bag as well as an ID number.
+ * This class is a chile class which extends the Bag class and is used to
+ * represent a Black Bag in the game. It stores an asigned WhiteBag which is
+ * used to refill the black bag and has an array of rocks in the bag as well as
+ * an ID number.
  */
 public class BlackBag extends Bag {
 
@@ -23,10 +26,11 @@ public class BlackBag extends Bag {
     int number;
 
     /**
-     * This method is used to add a rock to the black bag, and is used when refilling the bag from
-     * a white bag after it is empty.
+     * This method is used to add a rock to the black bag, and is used when
+     * refilling the bag from a white bag after it is empty.
      * 
-     * @param newRock This is the new rock to add to the array of rocks in the black bag.
+     * @param newRock This is the new rock to add to the array of rocks in the black
+     *                bag.
      */
     public synchronized void refillBag(Rock newRock) {
         Rock[] newRocks = new Rock[rocks.length + 1];
@@ -38,14 +42,15 @@ public class BlackBag extends Bag {
     }
 
     /**
-     * This method is used to remove a rock with a given index in the rocks array of the black
-     * bag.
+     * This method is used to remove a rock with a given index in the rocks array of
+     * the black bag.
      * 
      * @param index This is the index of the rock to be removed.
      */
     public synchronized void removeRock(int index) {
-        Rock[] newRocks = new Rock[rocks.length - 1];
-        for (int i = 0, k = 0; i < rocks.length; i++) {
+        AtomicInteger length = new AtomicInteger(rocks.length);
+        Rock[] newRocks = new Rock[length.get() - 1];
+        for (int i = 0, k = 0; i < length.get(); i++) {
             if (i == index) {
                 continue;
             }
@@ -56,12 +61,14 @@ public class BlackBag extends Bag {
     }
 
     /**
-     * This is the constructor method for a BlackBag, it takes in a bag number to identify the black bag by,
-     * an assigned White Bag objet which is used to refill the black bag when ut is empty and an array of rocks.
+     * This is the constructor method for a BlackBag, it takes in a bag number to
+     * identify the black bag by, an assigned White Bag objet which is used to
+     * refill the black bag when ut is empty and an array of rocks.
      * 
-     * @param bagNumber This is the ID number of the bag.
-     * @param assignedWhiteBag  This is the asigned White Bag for the black bag.
-     * @param rocks This is the array of rocks which are in the black bag.
+     * @param bagNumber        This is the ID number of the bag.
+     * @param assignedWhiteBag This is the asigned White Bag for the black bag.
+     * @param rocks            This is the array of rocks which are in the black
+     *                         bag.
      */
     public BlackBag(int bagNumber, WhiteBag assignedWhiteBag, Rock[] rocks) {
         this.number = bagNumber;
@@ -71,8 +78,8 @@ public class BlackBag extends Bag {
     }
 
     /**
-     * This is the toString method for the class which is used to display the class in a more readable user friendly
-     * format.
+     * This is the toString method for the class which is used to display the class
+     * in a more readable user friendly format.
      */
     @Override
     public String toString() {
