@@ -8,9 +8,10 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * This class is the main controller for the entire platform and has a nested for each player in
- * the game. It contains methods for creating the White and Black Bags as well as the threads and
- * players themselves. It has an array of three WhiteBags and an array of three BlackBags.
+ * This class is the main controller for the entire platform and has a nested
+ * for each player in the game. It contains methods for creating the White and
+ * Black Bags as well as the threads and players themselves. It has an array of
+ * three WhiteBags and an array of three BlackBags.
  */
 public class PebbleGame {
 
@@ -25,9 +26,10 @@ public class PebbleGame {
     static BlackBag[] blackBags = new BlackBag[3];
 
     /**
-     * This is a nested class which is used to define a Player, which holds the player's name,
-     * their rocks and their specific outputFilehandler. It has an array of rocks, a string
-     * value for the name and an OutputFileHandler object as attributes.
+     * This is a nested class which is used to define a Player, which holds the
+     * player's name, their rocks and their specific outputFilehandler. It has an
+     * array of rocks, a string value for the name and an OutputFileHandler object
+     * as attributes.
      */
     static class Player implements Runnable {
 
@@ -44,8 +46,8 @@ public class PebbleGame {
         private OutputFileHandler outputFileHandler;
 
         /**
-         * This is te constructor for a Player object, it takes in an inex (id number) for the
-         * player which is then used to create the player name.
+         * This is te constructor for a Player object, it takes in an inex (id number)
+         * for the player which is then used to create the player name.
          * 
          * @param index Index of the player (player number).
          */
@@ -55,8 +57,8 @@ public class PebbleGame {
         }
 
         /**
-         * This method is used to let the player "play" the game and loops discuarding and drawing
-         * rocks until they win or are interupted by someone else winning.
+         * This method is used to let the player "play" the game and loops discuarding
+         * and drawing rocks until they win or are interupted by someone else winning.
          */
         public void run() {
             System.out.println(name + ": Has Started");
@@ -80,8 +82,8 @@ public class PebbleGame {
         }
 
         /**
-         * This method is used to draw the initial ten rocks each player needs before they can start
-         * playing the game.
+         * This method is used to draw the initial ten rocks each player needs before
+         * they can start playing the game.
          */
         private synchronized void beginGame() {
             for (int i = 0; i < 10; i++) {
@@ -92,7 +94,8 @@ public class PebbleGame {
         }
 
         /**
-         * This method checks if the player's rock's weights equal 100 and hence if they have won.
+         * This method checks if the player's rock's weights equal 100 and hence if they
+         * have won.
          * 
          * @return a boolean value true or false depending if they have won.
          */
@@ -152,7 +155,8 @@ public class PebbleGame {
         /**
          * This method is used to draw a new rock.
          * 
-         * @param isSetup a boolean value for if this is part of the 10 initial draws each player does.
+         * @param isSetup a boolean value for if this is part of the 10 initial draws
+         *                each player does.
          * @return nextRock the next rock
          */
         private synchronized Rock drawRock(Boolean isSetup) {
