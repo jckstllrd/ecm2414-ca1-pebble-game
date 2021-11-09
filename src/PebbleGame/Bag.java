@@ -26,4 +26,13 @@ public class Bag {
         newList[rocks.length] = newRock;
         rocks = newList;
     }
+
+    /**
+     * This method is used to get all the rocks in the bag.
+     * 
+     * @return all the rocks in the bag.
+     */
+    public Rock[] getRocks() {
+        return rocks;
+    }
 }
