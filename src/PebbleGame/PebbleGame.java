@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class is the main controller for the entire platform and has a nested
@@ -43,7 +42,6 @@ public class PebbleGame {
          * This is the players name.
          */
         private String name;
-        private WhiteBag nextDiscardBag;
         private OutputFileHandler outputFileHandler;
 
         /**
@@ -86,7 +84,7 @@ public class PebbleGame {
          * This method is used to draw the initial ten rocks each player needs before
          * they can start playing the game.
          */
-        private synchronized void beginGame() {
+        private void beginGame() {
             for (int i = 0; i < 10; i++) {
                 Rock nextRock = this.drawRock(true);
                 rocks[i] = nextRock;
@@ -106,7 +104,7 @@ public class PebbleGame {
             for (Rock rock : rocks) {
                 totalWeight += rock.weight;
             }
-            if (totalWeight == 700) {
+            if (totalWeight == 500) {
                 return true;
             } else {
 
@@ -117,7 +115,7 @@ public class PebbleGame {
         /**
          * This method is used to discrad a random rock from the players rocks.
          */
-        public void discardRock() {
+        public synchronized void discardRock() {
             Random rand = new Random();
             int index = rand.nextInt(rocks.length);
 
@@ -129,10 +127,10 @@ public class PebbleGame {
 
                 newRocks[k++] = rocks[i];
             }
-            nextDiscardBag.addToWhiteBag(rocks[index]);
+            BagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
             // BagHandler.getNextDisgardBag().addToWhiteBag(rocks[index]);
 
-            outputFileHandler.writeDiscardRockMessage(rocks[index].weight, nextDiscardBag.number);
+            outputFileHandler.writeDiscardRockMessage(rocks[index].weight, BagHandler.getNextDiscardBag().number);
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
@@ -160,21 +158,19 @@ public class PebbleGame {
          *                each player does.
          * @return the next rock to be drawn
          */
-        private Rock drawRock(Boolean isSetup) {
+        private synchronized Rock drawRock(Boolean isSetup) {
             Random rand = new Random();
 
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
-            AtomicInteger amountRocks = new AtomicInteger(blackBag.rocks.length);
-            if (amountRocks.get() == 0) {
+
+            if (blackBag.rocks.length == 0) {
                 // System.out.println("Black bag " + blackBag.number + " is empty!");
                 // System.out.println("The white bag contains " +
                 // Arrays.toString(blackBag.assignedWhiteBag.rocks));
-                System.out.println("Refilling bag " + blackBag.number);
                 blackBag.assignedWhiteBag.drainWhiteBag();
-                System.out.println(Arrays.toString(blackBag.rocks));
             }
-            System.out.println("black bag contains" + amountRocks.get());
-            int index = rand.nextInt(amountRocks.get());
+
+            int index = rand.nextInt(blackBag.rocks.length);
 
             Rock nextRock = blackBag.rocks[index];
 
@@ -189,7 +185,7 @@ public class PebbleGame {
                 outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.number);
             }
 
-            this.nextDiscardBag = blackBag.assignedWhiteBag;
+            BagHandler.updateNextDiscard(blackBag.assignedWhiteBag);
             // BagHandler.updateNextDisguard(blackBag.assignedWhiteBag);
             return nextRock;
         }
@@ -260,6 +256,7 @@ public class PebbleGame {
                     whiteBags[i] = new WhiteBag();
                     blackBags[i] = new BlackBag(i, whiteBags[i], rocks);
                 }
+                System.out.println(whiteBags.length);
                 break;
             } catch (FileNotFoundException e) {
                 myUserInterface.displayErrorMessage(e.getMessage() + "\nPlease re-enter the file locations.");
@@ -271,7 +268,7 @@ public class PebbleGame {
                 myUserInterface.displayErrorMessage(e.getMessage());
                 return false;
             } catch (Exception e) {
-                return false;
+                throw e;
             }
 
         } while (true);
