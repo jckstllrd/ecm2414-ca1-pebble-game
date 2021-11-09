@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.atomic.*;
 
 public class PebbleGame {
 
@@ -43,10 +42,7 @@ public class PebbleGame {
                 addRock(drawRock(false));
             }
             System.out.println(name + ": Has Won");
-        }
-
-        private synchronized void playGame() {
-
+            System.exit(0);
         }
 
         private synchronized void beginGame() {
@@ -58,12 +54,12 @@ public class PebbleGame {
         }
 
         private Boolean hasWon() {
-            int totalWieght = 0;
+            int totalWeight = 0;
 
             for (Rock rock : rocks) {
-                totalWieght += rock.weight;
+                totalWeight += rock.weight;
             }
-            if (totalWieght == 100) {
+            if (totalWeight == 800) {
                 return true;
             } else {
 
@@ -118,10 +114,10 @@ public class PebbleGame {
 
             Rock nextRock = blackBag.rocks[index];
 
-            /**
-             * if (nextRock == null) { System.out.println(Arrays.toString(blackBag.rocks));
-             * System.out.println("This rock has a value of null"); }
-             **/
+            if (nextRock == null) {
+                System.out.println(Arrays.toString(blackBag.rocks));
+                System.out.println("This rock has a value of null");
+            }
 
             blackBag.removeRock(index);
 
