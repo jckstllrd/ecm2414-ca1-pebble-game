@@ -9,14 +9,14 @@ public final class BagHandler {
     /**
      * This is the WhiteBag object where the next discarded rock should be stored.
      */
-    static WhiteBag nextDiscuard;
+    static private WhiteBag nextDiscuard;
 
     /**
      * This method returns the next WhiteBag which is a rock should be discarded to.
      * 
      * @return The WhiteBag object to discard to next
      */
-    public static WhiteBag getNextDiscardBag() {
+    public synchronized static WhiteBag getNextDiscardBag() {
         return nextDiscuard;
     }
 
