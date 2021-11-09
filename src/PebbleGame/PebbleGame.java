@@ -40,14 +40,7 @@ public class PebbleGame {
          * This is the players name.
          */
         private String name;
-<<<<<<< HEAD
-
-        /**
-         * This is the output file handler for the player.
-         */
-=======
         private WhiteBag nextDiscardBag;
->>>>>>> 8130f735e8b8e85995d2f3caae4577af33969e10
         private OutputFileHandler outputFileHandler;
 
         /**
@@ -132,17 +125,10 @@ public class PebbleGame {
 
                 newRocks[k++] = rocks[i];
             }
-<<<<<<< HEAD
-            BagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
-            System.out.println("Adding to White bag " + BagHandler.getNextDiscardBag().number + ", size is: "
-                    + BagHandler.getNextDiscardBag().rocks.length);
-            outputFileHandler.writeDiscardRockMessage(rocks[index].weight, BagHandler.getNextDiscardBag().number);
-=======
             nextDiscardBag.addToWhiteBag(rocks[index]);
             // BagHandler.getNextDisgardBag().addToWhiteBag(rocks[index]);
 
             outputFileHandler.writeDiscardRockMessage(rocks[index].weight, nextDiscardBag.number);
->>>>>>> 8130f735e8b8e85995d2f3caae4577af33969e10
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
@@ -196,12 +182,8 @@ public class PebbleGame {
                 outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.number);
             }
 
-<<<<<<< HEAD
-            BagHandler.updateNextDiscard(blackBag.assignedWhiteBag);
-=======
             this.nextDiscardBag = blackBag.assignedWhiteBag;
             // BagHandler.updateNextDisguard(blackBag.assignedWhiteBag);
->>>>>>> 8130f735e8b8e85995d2f3caae4577af33969e10
             return nextRock;
         }
     }
