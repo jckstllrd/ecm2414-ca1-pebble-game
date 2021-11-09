@@ -38,13 +38,17 @@ public class PebbleGame {
             beginGame();
 
             while (!hasWon()) {
-                discardRock();
-                addRock(drawRock(false));
+                playGame();
             }
             System.out.println(name + ": Has Won");
         }
 
-        synchronized private void beginGame() {
+        private synchronized void playGame() {
+            discardRock();
+            addRock(drawRock(false));
+        }
+
+        private synchronized void beginGame() {
             for (int i = 0; i < 10; i++) {
                 Rock nextRock = this.drawRock(true);
                 rocks[i] = nextRock;
@@ -66,7 +70,7 @@ public class PebbleGame {
             }
         }
 
-        synchronized public void discardRock() {
+        public synchronized void discardRock() {
             Random rand = new Random();
             int index = rand.nextInt(rocks.length);
 
@@ -79,12 +83,14 @@ public class PebbleGame {
                 newRocks[k++] = rocks[i];
             }
             BagHandler.getNextDisgardBag().addToWhiteBag(rocks[index]);
+            System.out.println("Adding to White bag " + BagHandler.getNextDisgardBag().number + ", size is: "
+                    + BagHandler.getNextDisgardBag().rocks.length);
             outputFileHandler.writeDiscardRockMessage(rocks[index].weight, BagHandler.getNextDisgardBag().number);
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
 
-        synchronized public void addRock(Rock newRock) {
+        public synchronized void addRock(Rock newRock) {
             Rock[] newRocks = new Rock[rocks.length + 1];
             for (int i = 0; i < rocks.length; i++) {
                 newRocks[i] = rocks[i];
@@ -95,32 +101,34 @@ public class PebbleGame {
             outputFileHandler.writeAllRocksMessage(Arrays.toString(rocks));
         }
 
-        synchronized private Rock drawRock(Boolean isSetup) {
+        private synchronized Rock drawRock(Boolean isSetup) {
             Random rand = new Random();
+            AtomicInteger length = new AtomicInteger(blackBags.length);
 
-            BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
+            BlackBag blackBag = blackBags[rand.nextInt(length.get())];
 
-            if (blackBag.rocks.length == 0) {
-
+            if (length.get() == 0) {
+                System.out.println("Black bag " + blackBag.number + " is empty!");
+                System.out.println("The white bag contains " + Arrays.toString(blackBag.assignedWhiteBag.rocks));
                 blackBag.assignedWhiteBag.drainWhiteBag();
             }
 
-            int index = rand.nextInt(blackBag.rocks.length);
-            Rock nextRock = blackBag.rocks[index];
+            AtomicInteger index = new AtomicInteger(rand.nextInt(length.get()));
+            Rock nextRock = blackBag.rocks[index.get()];
 
             if (nextRock == null) {
                 System.out.println(Arrays.toString(blackBag.rocks));
                 System.out.println("This rock has a value of null");
             }
 
-            blackBag.removeRock(index);
+            blackBag.removeRock(index.get());
 
-            if (!isSetup)  {
+            if (!isSetup) {
                 outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.number);
-            } 
+            }
+            System.out.println("Taking from Black bag " + blackBag.number + ", size is: " + length.get());
 
             BagHandler.updateNextDisguard(blackBag.assignedWhiteBag);
-            System.out.println("Setting Next disguard Bag to: WhiteBag"+blackBag.assignedWhiteBag.number);
             return nextRock;
         }
     }
@@ -143,7 +151,7 @@ public class PebbleGame {
 
         Rock[] rocks = new Rock[weights.length];
         for (int i = 0; i < rocks.length; i++) {
-            if (weights[i].trim().equals("")){
+            if (weights[i].trim().equals("")) {
                 throw new InvalidRockWeightException("File contains a entry with no value (emptyspace).");
             }
             if (Integer.parseInt(weights[i]) <= 0) {

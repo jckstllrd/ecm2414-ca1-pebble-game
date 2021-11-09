@@ -1,7 +1,5 @@
 package PebbleGame;
 
-import java.util.concurrent.atomic.*;
-
 /**
  * BlackBack
  */
@@ -11,7 +9,7 @@ public class BlackBag extends Bag {
     Rock[] rocks;
     int number;
 
-    public void refillBag(Rock newRock) {
+    public synchronized void refillBag(Rock newRock) {
         Rock[] newRocks = new Rock[rocks.length + 1];
         for (int i = 0; i < rocks.length; i++) {
             newRocks[i] = rocks[i];
@@ -20,7 +18,7 @@ public class BlackBag extends Bag {
         rocks = newRocks;
     }
 
-    public void removeRock(int index) {
+    public synchronized void removeRock(int index) {
         Rock[] newRocks = new Rock[rocks.length - 1];
         for (int i = 0, k = 0; i < rocks.length; i++) {
             if (i == index) {
@@ -28,7 +26,7 @@ public class BlackBag extends Bag {
             }
             newRocks[k++] = rocks[i];
         }
-        
+
         rocks = newRocks;
     }
 

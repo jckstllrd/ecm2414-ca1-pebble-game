@@ -13,7 +13,7 @@ public class WhiteBag extends Bag {
 
     }
 
-    public void addToWhiteBag(Rock newRock) {
+    public synchronized void addToWhiteBag(Rock newRock) {
         Rock[] newRocks = new Rock[rocks.length + 1];
         for (int i = 0; i < rocks.length; i++) {
             newRocks[i] = rocks[i];
@@ -22,7 +22,7 @@ public class WhiteBag extends Bag {
         rocks = newRocks;
     }
 
-    public void drainWhiteBag() {
+    public synchronized void drainWhiteBag() {
         Rock[] newRocks = new Rock[0];
         for (int i = 0; i < rocks.length; i++) {
 

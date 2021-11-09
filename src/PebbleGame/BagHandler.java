@@ -7,7 +7,7 @@ public final class BagHandler {
         return nextDisguard;
     }
 
-    public static void updateNextDisguard(WhiteBag newNextDisguard) {
+    public synchronized static void updateNextDisguard(WhiteBag newNextDisguard) {
         nextDisguard = newNextDisguard;
     }
 }
