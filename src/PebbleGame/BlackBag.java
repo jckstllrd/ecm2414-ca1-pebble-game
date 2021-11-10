@@ -1,7 +1,5 @@
 package PebbleGame;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * This class is a chile class which extends the Bag class and is used to
  * represent a Black Bag in the game. It stores an asigned WhiteBag which is
@@ -65,15 +63,13 @@ public class BlackBag extends Bag {
      * @param index This is the index of the rock to be removed.
      */
     public synchronized void removeRock(int index) {
-        AtomicInteger length = new AtomicInteger(rocks.length);
-        Rock[] newRocks = new Rock[length.get() - 1];
-        for (int i = 0, k = 0; i < length.get(); i++) {
+        Rock[] newRocks = new Rock[rocks.length - 1];
+        for (int i = 0, k = 0; i < rocks.length; i++) {
             if (i == index) {
                 continue;
             }
             newRocks[k++] = rocks[i];
         }
-
         rocks = newRocks;
     }
 
@@ -98,9 +94,8 @@ public class BlackBag extends Bag {
     /**
      * This method is used to returns the bag's rocks
      */
-    @Override
     public Rock[] getRocks() {
-        return super.getRocks();
+        return rocks;
     }
 
     /**
