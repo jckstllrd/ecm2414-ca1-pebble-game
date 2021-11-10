@@ -10,14 +10,14 @@ public class Bag {
     /**
      * This is the Array of rocks stored in the Bag.
      */
-    Rock[] rocks;
+    private Rock[] rocks;
 
     /**
      * This is the constructor of the Bag class and creates the rocks attribute
      * to just be an empty array.
      */
     public Bag() {
-        rocks = new Rock[]{};
+        rocks = new Rock[] {};
     }
 
     /**
