@@ -20,6 +20,10 @@ Once both of these have been completed the program will run and you will get pro
 
 Note - When giving input, entering "E" will exit out of the program.
 
+## Testing the Project
+
+To test the project you need to run the code in visual studio and download the java extension 'Test Runner for Java'. Once this is installed you just navigate to the test file that you would like to run and either press the run button to the side of the class line, or you can run a specific method test on its own.
+
 ## Contributors
 
 Jack Stallard - https://github.com/jckstllrd
