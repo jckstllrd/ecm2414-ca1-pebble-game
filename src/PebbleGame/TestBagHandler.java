@@ -21,6 +21,4 @@ public class TestBagHandler {
         BagHandler.updateNextDiscard(testWhiteBag);
         assertEquals(testWhiteBag, BagHandler.getNextDiscardBag());
     }
-
-    
 }
