@@ -22,7 +22,19 @@ public class UserInterface {
      */
     private String getInput() {
         String input = sc.nextLine();
+        checkIfExit(input);
         return input;
+    }
+
+    /**
+     * This method is used to check if the user has requested to Exit.
+     * 
+     * @param input The users input.
+     */
+    private void checkIfExit(String input) {
+        if (input.equals("E")) {
+            System.exit(0);
+        }
     }
 
     /**

@@ -104,7 +104,7 @@ public class PebbleGame {
             for (Rock rock : rocks) {
                 totalWeight += rock.weight;
             }
-            if (totalWeight == 500) {
+            if (totalWeight == 100) {
                 return true;
             } else {
 
@@ -128,8 +128,7 @@ public class PebbleGame {
                 newRocks[k++] = rocks[i];
             }
             BagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
-            // BagHandler.getNextDisgardBag().addToWhiteBag(rocks[index]);
-
+            
             outputFileHandler.writeDiscardRockMessage(rocks[index].weight, BagHandler.getNextDiscardBag().number);
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
@@ -164,9 +163,6 @@ public class PebbleGame {
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
 
             if (blackBag.rocks.length == 0) {
-                // System.out.println("Black bag " + blackBag.number + " is empty!");
-                // System.out.println("The white bag contains " +
-                // Arrays.toString(blackBag.assignedWhiteBag.rocks));
                 blackBag.assignedWhiteBag.drainWhiteBag();
             }
 
@@ -186,7 +182,7 @@ public class PebbleGame {
             }
 
             BagHandler.updateNextDiscard(blackBag.assignedWhiteBag);
-            // BagHandler.updateNextDisguard(blackBag.assignedWhiteBag);
+
             return nextRock;
         }
     }
