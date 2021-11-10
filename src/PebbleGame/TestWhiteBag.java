@@ -1,9 +1,9 @@
 package PebbleGame;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 public class TestWhiteBag {
 
@@ -12,11 +12,6 @@ public class TestWhiteBag {
     int testNumber;
     Rock testRock;
     Rock[] testRocks;
-
-    @BeforeAll
-    public void setup() {
-        testAssignedBlackBag = new BlackBag(0, testWhiteBag, testRocks);
-    }
 
     @Test
     public void test_constructor() {
@@ -38,11 +33,29 @@ public class TestWhiteBag {
 
     @Test
     public void test_drainWhiteBag() {
+        testWhiteBag = new WhiteBag();
+        testRock = new Rock(10);
+        testRocks = new Rock[] {};
 
+        testWhiteBag.addToWhiteBag(testRock);
+
+        testAssignedBlackBag = new BlackBag(1, testWhiteBag, testRocks);
+
+        testWhiteBag.drainWhiteBag();
+
+        testRocks = new Rock[] {testRock};
+
+        assertArrayEquals(testRocks, testAssignedBlackBag.getRocks());
     }
 
     @Test
     public void test_assignBlackBag() {
+        testWhiteBag = new WhiteBag();
+        testRocks = new Rock[] {};
+        testAssignedBlackBag = new BlackBag(1, testWhiteBag, testRocks);
 
+        testWhiteBag.assignBlackBag(1, testAssignedBlackBag);
+
+        assertEquals(testWhiteBag.assignedBlackBag, testAssignedBlackBag);
     }
 }
