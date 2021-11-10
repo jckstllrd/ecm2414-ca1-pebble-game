@@ -29,7 +29,7 @@ public class TestWhiteBag {
     public void test_addToWhiteBag() {
         testWhiteBag = new WhiteBag();
         testRock = new Rock(10);
-        testRocks = new Rock[] { testRock };
+        testRocks = new Rock[] {testRock};
 
         testWhiteBag.addToWhiteBag(testRock);
 

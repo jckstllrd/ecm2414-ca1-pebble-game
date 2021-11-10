@@ -1,13 +1,12 @@
 package PebbleGame;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 /**
- * This class contains the Tests for the BagHandler Class.
+ * This class contains the Tests for the Black Bag Class.
  */
 public class TestBlackBag {
 
@@ -15,16 +14,67 @@ public class TestBlackBag {
     WhiteBag testWhiteBag;
     Rock[] testRocks;
 
-    @BeforeAll
-    public void setUp() {
-        testWhiteBag = new WhiteBag();
-        testRocks = new Rock[] {};
-    }
-
     @Test
     public void test_constructor() {
+        testWhiteBag = new WhiteBag();
+        testRocks = new Rock[] {};
         testBlackBag = new BlackBag(1, testWhiteBag, testRocks);
         assertEquals(BlackBag.class, testBlackBag.getClass());
         assertEquals(1, testBlackBag.getNumber());
+        assertEquals(testWhiteBag, testBlackBag.getAssignedWhiteBag());
+        assertEquals(testRocks, testBlackBag.getRocks());
+    }
+
+    @Test
+    public void test_refillBag() {
+        testWhiteBag = new WhiteBag();
+        testRocks = new Rock[] {};
+        testBlackBag = new BlackBag(1, testWhiteBag, testRocks);
+
+        Rock rock1 = new Rock(10);
+        testRocks = new Rock[] {rock1};
+
+        testBlackBag.refillBag(rock1);
+
+        assertArrayEquals(testRocks, testBlackBag.getRocks());
+    }
+
+    @Test
+    public void test_removeRock() {
+        testWhiteBag = new WhiteBag();
+        Rock rock1 = new Rock(10);
+        testRocks = new Rock[] {rock1};
+        testBlackBag = new BlackBag(1, testWhiteBag, testRocks);
+
+        testBlackBag.removeRock(0);
+
+        assertEquals(0, testBlackBag.getRocks().length);
+    }
+
+    @Test
+    public void test_getNumber() {
+        testWhiteBag = new WhiteBag();
+        testRocks = new Rock[] {};
+        testBlackBag = new BlackBag(1, testWhiteBag, testRocks);
+
+        assertEquals(1, testBlackBag.getNumber());
+    }
+
+    @Test
+    public void test_getAssigndWhiteBag() {
+        testWhiteBag = new WhiteBag();
+        testRocks = new Rock[] {};
+        testBlackBag = new BlackBag(1, testWhiteBag, testRocks);
+
+        assertEquals(testWhiteBag, testBlackBag.getAssignedWhiteBag());
+    }
+
+    @Test
+    public void test_getRocks() {
+        testWhiteBag = new WhiteBag();
+        testRocks = new Rock[] {};
+        testBlackBag = new BlackBag(1, testWhiteBag, testRocks);
+
+        assertArrayEquals(testRocks, testBlackBag.getRocks());
     }
 }

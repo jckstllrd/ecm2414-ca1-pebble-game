@@ -70,6 +70,16 @@ public class WhiteBag extends Bag {
     }
 
     /**
+     * This method returns the white bags rocks/
+     * 
+     * @return the white bags rocks.
+     */
+    @Override
+    public Rock[] getRocks() {
+        return rocks;
+    }
+
+    /**
      * This method displays the White Bag in a user friendly readable way.
      */
     @Override
