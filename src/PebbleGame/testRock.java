@@ -1,19 +1,25 @@
 package PebbleGame;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.Test;
 
 public class TestRock {
 
     Rock testRock;
-    int testWeight;
-
+    
     @Test
     public void test_constructor() {
-        testWeight = 10;
-        testRock = new Rock(testWeight);
+        testRock = new Rock(10);
 
-        assertEquals(testRock.getWeight(), testWeight);
+        assertInstanceOf(Rock.class, testRock);
+    }
+
+    @Test
+    public void test_getWeight() {
+        testRock = new Rock(10);
+
+        assertEquals(10, testRock.getWeight());
     }
 }

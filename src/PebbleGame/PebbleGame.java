@@ -89,7 +89,7 @@ public class PebbleGame {
                 Rock nextRock = this.drawRock(true);
                 rocks[i] = nextRock;
             }
-            System.out.println(name + "Has collected their starting rocks");
+            System.out.println(name + ": Has collected their starting rocks");
         }
 
         /**
@@ -170,29 +170,41 @@ public class PebbleGame {
                 System.out.println("DRAIN NOT WORKED");
             }
 
-            try {
-                int index = rand.nextInt(blackBag.getRocks().length);
-                Rock nextRock = blackBag.getRocks()[index];
+            int index = rand.nextInt(blackBag.getRocks().length);
+            Rock nextRock = blackBag.getRocks()[index];
 
-                if (nextRock == null) {
-                    System.out.println(Arrays.toString(blackBag.getRocks()));
-                    System.out.println("This rock has a value of null");
-                }
-
-                blackBag.removeRock(index);
-
-                if (!isSetup) {
-                    outputFileHandler.writeDrawnRockMessage(nextRock.getWeight(), blackBag.getNumber());
-                }
-
-                BagHandler.updateNextDiscard(blackBag.getAssignedWhiteBag());
-
-                return nextRock;
-
-            } catch (IllegalArgumentException e) {
-                System.out.println(blackBag.getRocks().length);
-                throw e;
+            if (nextRock == null) {
+                System.out.println(Arrays.toString(blackBag.getRocks()));
+                System.out.println("This rock has a value of null");
             }
+
+            blackBag.removeRock(index);
+
+            if (!isSetup) {
+                outputFileHandler.writeDrawnRockMessage(nextRock.getWeight(), blackBag.getNumber());
+            }
+
+            BagHandler.updateNextDiscard(blackBag.getAssignedWhiteBag());
+
+            return nextRock;
+        }
+
+        /**
+         * This method returns the name of the player.
+         * 
+         * @return the player's name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * This method returns the output file handler for the player.
+         * 
+         * @return the players output file handler.
+         */
+        public OutputFileHandler getOutputFileHandler() {
+            return outputFileHandler;
         }
     }
 
