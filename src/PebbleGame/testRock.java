@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TestRock {
 
     Rock testRock;
-    
+
     @Test
     public void test_constructor() {
         testRock = new Rock(10);
