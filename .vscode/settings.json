@@ -5,6 +5,7 @@
 
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "C:\\Users\\treev\\OneDrive - University of Exeter\\Documents\\Univeristy\\Y2\\ECM2414\\Coursework\\ecm2414-ca1-pebble-game\\libs\\junit-platform-console-standalone-1.8.1.jar"
+        "C:\\Users\\treev\\OneDrive - University of Exeter\\Documents\\Univeristy\\Y2\\ECM2414\\Coursework\\ecm2414-ca1-pebble-game\\libs\\junit-platform-console-standalone-1.8.1.jar",
+        "C:\\Users\\Jack\\OneDrive - University of Exeter\\Year 2\\Term 1\\Software Development\\Controlled Assessment\\ecm2414-ca1-pebble-game\\libs\\junit-platform-console-standalone-1.8.1.jar"
     ]
 }
