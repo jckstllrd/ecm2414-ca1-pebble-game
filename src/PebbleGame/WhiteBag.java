@@ -1,11 +1,11 @@
 package PebbleGame;
 
 /**
- * This class is used to define a White Bag which inherits from its parent class 
- * Bag. A white bag is used by the program to store rocks when they are discarded
- * by a player and then each which bag is asigned to a black back which is then
- * refilled by its partnering white bag when empty. The class has this asigned black
- * bag, an array of rocks, and an id number as attributes.
+ * This class is used to define a White Bag which inherits from its parent class
+ * Bag. A white bag is used by the program to store rocks when they are
+ * discarded by a player and then each which bag is asigned to a black back
+ * which is then refilled by its partnering white bag when empty. The class has
+ * this asigned black bag, an array of rocks, and an id number as attributes.
  */
 public class WhiteBag extends Bag {
 
@@ -55,14 +55,14 @@ public class WhiteBag extends Bag {
 
             assignedBlackBag.refillBag(rocks[i]);
         }
-        Rock[] newRocks = new Rock[]{};
+        Rock[] newRocks = new Rock[] {};
         rocks = newRocks;
     }
 
     /**
      * This method is used to asign a black back object to the class's attribute.
      * 
-     * @param bagNumber the id number of this bag.
+     * @param bagNumber        the id number of this bag.
      * @param assignedBlackBag the black bag to be asigned to this white bag.
      */
     public void assignBlackBag(int bagNumber, BlackBag assignedBlackBag) {
