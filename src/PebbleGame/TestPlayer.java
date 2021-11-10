@@ -24,7 +24,6 @@ public class TestPlayer {
     @Test
     public void test_hasWon() throws Exception {
         testPlayer = new Player(1);
-        testPlayer.
         Method method = Player.class.getDeclaredMethod("hasWon");
         method.setAccessible(true);
 
