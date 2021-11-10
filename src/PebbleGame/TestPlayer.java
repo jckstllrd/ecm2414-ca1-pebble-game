@@ -24,10 +24,16 @@ public class TestPlayer {
     @Test
     public void test_hasWon() throws Exception {
         testPlayer = new Player(1);
-        Method method = Player.class.getDeclaredMethod("hasWon");
-        method.setAccessible(true);
 
-        Boolean returnValue = (Boolean) method.invoke(testPlayer);
+        Method begindgameMethod = Player.class.getDeclaredMethod("beginGame");
+        begindgameMethod.setAccessible(true);
+        begindgameMethod.invoke(testPlayer);
+
+        Method hasWonMethod = Player.class.getDeclaredMethod("hasWon");
+        hasWonMethod.setAccessible(true);
+
+        Boolean returnValue = (Boolean) hasWonMethod.invoke(testPlayer);
+        
         assertEquals(false, returnValue);
     }
 }
