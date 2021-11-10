@@ -104,7 +104,7 @@ public class PebbleGame {
             for (Rock rock : rocks) {
                 totalWeight += rock.getWeight();
             }
-            if (totalWeight == 100) {
+            if (totalWeight == 200) {
                 return true;
             } else {
 

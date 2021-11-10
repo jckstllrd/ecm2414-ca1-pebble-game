@@ -18,11 +18,12 @@ public class TestBag {
     public void test_constrcutor() {
         bag = new Bag();
         rocks = new Rock[] {};
-        assertArrayEquals(bag.getRocks(), rocks);
+        assertInstanceOf(Bag.class, bag);
+        assertArrayEquals(rocks, bag.getRocks());
     }
 
     @Test
-    public void test_add_rock() {
+    public void test_addRock() {
         bag = new Bag();
         rock = new Rock(10);
         rocks = new Rock[] {rock};
@@ -33,9 +34,17 @@ public class TestBag {
     }
 
     @Test
-    public void test_get_rocks() {
+    public void test_getRocks() {
         bag = new Bag();
-        
+        rocks = new Rock[] {};
         assertInstanceOf(Rock[].class, bag.getRocks());
+        assertArrayEquals(rocks, bag.getRocks());
+
+        rock = new Rock(10);
+
+        bag.addRock(rock);
+        rocks = new Rock[] {rock};
+
+        assertArrayEquals(rocks, bag.getRocks());
     }
 }

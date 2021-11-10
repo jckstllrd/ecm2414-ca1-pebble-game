@@ -26,7 +26,7 @@ public class Bag {
      * 
      * @param newRock This is the new rock object to be added.
      */
-    public void addRock(Rock newRock) {
+    public synchronized void addRock(Rock newRock) {
         Rock[] newList = new Rock[rocks.length + 1];
         for (int i = 0; i < rocks.length; i++) {
             newList[i] = rocks[i];
@@ -40,7 +40,7 @@ public class Bag {
      * 
      * @return all the rocks in the bag.
      */
-    public Rock[] getRocks() {
+    public synchronized Rock[] getRocks() {
         return rocks;
     }
 }
