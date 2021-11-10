@@ -3,21 +3,21 @@ package PebbleGame;
 import java.util.Scanner;
 
 /**
- * This method is used to define the User Interface which control all of
- * the interactions with the user, it has a Scanner object attribute which
- * is used to read inputs from the user.
+ * This method is used to define the User Interface which control all of the
+ * interactions with the user, it has a Scanner object attribute which is used
+ * to read inputs from the user.
  */
 public class UserInterface {
-    
+
     /**
      * This is the Scanner objet which is used to read inputs from the user.
      */
     Scanner sc = new Scanner(System.in);
 
     /**
-     * This method is used to get an input from the user using the class's
-     * Scanner attribute.
-     *  
+     * This method is used to get an input from the user using the class's Scanner
+     * attribute.
+     * 
      * @return the user's input
      */
     private String getInput() {
@@ -38,10 +38,12 @@ public class UserInterface {
     }
 
     /**
-     * This method is used to display the title message when the program is first run.
+     * This method is used to display the title message when the program is first
+     * run.
      */
     public void displayTitleMessage() {
-        System.out.println("Welcome to the PebbleGame!!\nYou will be asked to enter the number of players.\nand then for the location of three files in turn containing comma separated integer values for the pebble weights.\nThe integer values must be strictly positive.\nThe game will then be simulated, and output written to files in this directory.");
+        System.out.println(
+                "Welcome to the PebbleGame!!\nYou will be asked to enter the number of players.\nand then for the location of three files in turn containing comma separated integer values for the pebble weights.\nThe integer values must be strictly positive.\nThe game will then be simulated, and output written to files in this directory.");
     }
 
     /**
@@ -49,14 +51,14 @@ public class UserInterface {
      * 
      * @param error A description of the error that has occured.
      */
-    public void displayErrorMessage(String error){
+    public void displayErrorMessage(String error) {
         System.out.println(error);
     }
 
     /**
-     * This method is used to ask the user for the number of players, it also carries
-     * out checks to ensure that the number of players is an integer rather than text
-     * and that the number is greater than zero.
+     * This method is used to ask the user for the number of players, it also
+     * carries out checks to ensure that the number of players is an integer rather
+     * than text and that the number is greater than zero.
      * 
      * @return returns the number of players entered by the user as an integer.
      */
@@ -67,7 +69,8 @@ public class UserInterface {
                 String stringNumPlayers = getInput();
                 int numPlayers = Integer.parseInt(stringNumPlayers);
                 if (numPlayers <= 0) {
-                    throw new InvalidInputException("Unacceptable Input - Number of Players Entered was not a positive number");
+                    throw new InvalidInputException(
+                            "Unacceptable Input - Number of Players Entered was not a positive number");
                 }
                 return numPlayers;
             } catch (NumberFormatException e) {
