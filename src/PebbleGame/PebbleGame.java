@@ -162,26 +162,26 @@ public class PebbleGame {
 
             BlackBag blackBag = blackBags[rand.nextInt(blackBags.length)];
 
-            if (blackBag.rocks.length == 0) {
-                blackBag.assignedWhiteBag.drainWhiteBag();
+            if (blackBag.getRocks().length == 0) {
+                blackBag.getAssignedWhiteBag().drainWhiteBag();
             }
 
-            int index = rand.nextInt(blackBag.rocks.length);
+            int index = rand.nextInt(blackBag.getRocks().length);
 
-            Rock nextRock = blackBag.rocks[index];
+            Rock nextRock = blackBag.getRocks()[index];
 
             if (nextRock == null) {
-                System.out.println(Arrays.toString(blackBag.rocks));
+                System.out.println(Arrays.toString(blackBag.getRocks()));
                 System.out.println("This rock has a value of null");
             }
 
             blackBag.removeRock(index);
 
             if (!isSetup) {
-                outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.number);
+                outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.getNumber());
             }
 
-            BagHandler.updateNextDiscard(blackBag.assignedWhiteBag);
+            BagHandler.updateNextDiscard(blackBag.getAssignedWhiteBag());
 
             return nextRock;
         }

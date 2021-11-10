@@ -13,17 +13,34 @@ public class BlackBag extends Bag {
     /**
      * This is the asigned WhiteBag which is used to refil the BlackBag.
      */
-    WhiteBag assignedWhiteBag;
+    private WhiteBag assignedWhiteBag;
 
     /**
      * This is the array of rocks in the black bag.
      */
-    Rock[] rocks;
+    private Rock[] rocks;
 
     /**
      * This is the ID number of the black bag.
      */
-    int number;
+    private int number;
+
+    /**
+     * This is the constructor method for a BlackBag, it takes in a bag number to
+     * identify the black bag by, an assigned White Bag objet which is used to
+     * refill the black bag when ut is empty and an array of rocks.
+     * 
+     * @param bagNumber        This is the ID number of the bag.
+     * @param assignedWhiteBag This is the asigned White Bag for the black bag.
+     * @param rocks            This is the array of rocks which are in the black
+     *                         bag.
+     */
+    public BlackBag(int bagNumber, WhiteBag assignedWhiteBag, Rock[] rocks) {
+        this.number = bagNumber;
+        this.assignedWhiteBag = assignedWhiteBag; // Pairs black to white bag for when empty
+        this.rocks = rocks;
+        assignedWhiteBag.assignBlackBag(bagNumber, this);
+    }
 
     /**
      * This method is used to add a rock to the black bag, and is used when
@@ -61,20 +78,29 @@ public class BlackBag extends Bag {
     }
 
     /**
-     * This is the constructor method for a BlackBag, it takes in a bag number to
-     * identify the black bag by, an assigned White Bag objet which is used to
-     * refill the black bag when ut is empty and an array of rocks.
+     * This method returns the Black Bag's Number.
      * 
-     * @param bagNumber        This is the ID number of the bag.
-     * @param assignedWhiteBag This is the asigned White Bag for the black bag.
-     * @param rocks            This is the array of rocks which are in the black
-     *                         bag.
+     * @return the black bag's number.
      */
-    public BlackBag(int bagNumber, WhiteBag assignedWhiteBag, Rock[] rocks) {
-        this.number = bagNumber;
-        this.assignedWhiteBag = assignedWhiteBag; // Pairs black to white bag for when empty
-        this.rocks = rocks;
-        assignedWhiteBag.assignBlackBag(bagNumber, this);
+    public int getNumber() {
+        return number;
+    }
+
+    /**
+     * This method returns the asigned White Bag.
+     * 
+     * @return the asigned white bag.
+     */
+    public WhiteBag getAssignedWhiteBag() {
+        return assignedWhiteBag;
+    }
+
+    /**
+     * This method is used to returns the bag's rocks
+     */
+    @Override
+    public Rock[] getRocks() {
+        return super.getRocks();
     }
 
     /**
