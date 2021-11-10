@@ -102,7 +102,7 @@ public class PebbleGame {
             int totalWeight = 0;
 
             for (Rock rock : rocks) {
-                totalWeight += rock.weight;
+                totalWeight += rock.getWeight();
             }
             if (totalWeight == 100) {
                 return true;
@@ -129,7 +129,7 @@ public class PebbleGame {
             }
             BagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
             
-            outputFileHandler.writeDiscardRockMessage(rocks[index].weight, BagHandler.getNextDiscardBag().number);
+            outputFileHandler.writeDiscardRockMessage(rocks[index].getWeight(), BagHandler.getNextDiscardBag().number);
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
@@ -166,24 +166,33 @@ public class PebbleGame {
                 blackBag.getAssignedWhiteBag().drainWhiteBag();
             }
 
-            int index = rand.nextInt(blackBag.getRocks().length);
-
-            Rock nextRock = blackBag.getRocks()[index];
-
-            if (nextRock == null) {
-                System.out.println(Arrays.toString(blackBag.getRocks()));
-                System.out.println("This rock has a value of null");
+            if (blackBag.getRocks().length == 0) {
+                System.out.println("DRAIN NOT WORKED");
             }
 
-            blackBag.removeRock(index);
+            try {
+                int index = rand.nextInt(blackBag.getRocks().length);
+                Rock nextRock = blackBag.getRocks()[index];
 
-            if (!isSetup) {
-                outputFileHandler.writeDrawnRockMessage(nextRock.weight, blackBag.getNumber());
+                if (nextRock == null) {
+                    System.out.println(Arrays.toString(blackBag.getRocks()));
+                    System.out.println("This rock has a value of null");
+                }
+
+                blackBag.removeRock(index);
+
+                if (!isSetup) {
+                    outputFileHandler.writeDrawnRockMessage(nextRock.getWeight(), blackBag.getNumber());
+                }
+
+                BagHandler.updateNextDiscard(blackBag.getAssignedWhiteBag());
+
+                return nextRock;
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(blackBag.getRocks().length);
+                throw e;
             }
-
-            BagHandler.updateNextDiscard(blackBag.getAssignedWhiteBag());
-
-            return nextRock;
         }
     }
 

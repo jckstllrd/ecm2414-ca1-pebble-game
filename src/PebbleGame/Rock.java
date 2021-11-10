@@ -9,7 +9,7 @@ public class Rock {
     /**
      * This is the weight of the rock.
      */
-    int weight;
+    private int weight;
 
     /**
      * The Constructor for the Rock object
@@ -19,6 +19,13 @@ public class Rock {
         this.weight = weight;
     }
     
+    /**
+     * This method returns the weight of the rock.
+     * @return the weight of the rock.
+     */
+    public int getWeight() {
+        return weight;
+    }
     /**
      * This method is use to return the weight of the rock as a String value.
      */

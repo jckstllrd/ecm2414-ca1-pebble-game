@@ -52,7 +52,6 @@ public class WhiteBag extends Bag {
      */
     public synchronized void drainWhiteBag() {
         for (int i = 0; i < rocks.length; i++) {
-
             assignedBlackBag.refillBag(rocks[i]);
         }
         Rock[] newRocks = new Rock[] {};

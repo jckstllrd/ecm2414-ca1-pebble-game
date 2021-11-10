@@ -78,7 +78,7 @@ public class BlackBag extends Bag {
      * 
      * @return the black bag's number.
      */
-    public int getNumber() {
+    public synchronized int getNumber() {
         return number;
     }
 
@@ -87,14 +87,14 @@ public class BlackBag extends Bag {
      * 
      * @return the asigned white bag.
      */
-    public WhiteBag getAssignedWhiteBag() {
+    public synchronized WhiteBag getAssignedWhiteBag() {
         return assignedWhiteBag;
     }
 
     /**
      * This method is used to returns the bag's rocks
      */
-    public Rock[] getRocks() {
+    public synchronized Rock[] getRocks() {
         return rocks;
     }
 
