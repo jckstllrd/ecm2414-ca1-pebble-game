@@ -62,15 +62,7 @@ public class PebbleGame {
          * and drawing rocks until they win or are interupted by someone else winning.
          */
         public void run() {
-            System.out.println(name + ": Has Started");
-            /**
-             * When game begins:
-             * 
-             * Take 10 rocks from bag if not equal to 100: discard a rock take another rock
-             * (while bag not empty) if bag empty: empty white bag into associated black bag
-             * 
-             * if equal to 100: you win
-             */
+            System.out.println(Thread.currentThread().getName() + ": Has Started");
 
             beginGame();
 
@@ -78,6 +70,7 @@ public class PebbleGame {
                 discardRock();
                 addRock(drawRock(false));
             }
+
             System.out.println(name + ": Has Won");
             System.exit(0);
         }
@@ -169,17 +162,8 @@ public class PebbleGame {
                 blackBag.getAssignedWhiteBag().drainWhiteBag();
             }
 
-            if (blackBag.getRocks().length == 0) {
-                System.out.println("DRAIN NOT WORKED");
-            }
-
             int index = rand.nextInt(blackBag.getRocks().length);
             Rock nextRock = blackBag.getRocks()[index];
-
-            if (nextRock == null) {
-                System.out.println(Arrays.toString(blackBag.getRocks()));
-                System.out.println("This rock has a value of null");
-            }
 
             blackBag.removeRock(index);
 
@@ -245,7 +229,6 @@ public class PebbleGame {
         br.close();
 
         if (numPlayers * 11 > weights.length) {
-            System.out.println(weights.length);
             throw new InvalidRockWeightException("File doesn't have enough weights for number of players entered.");
         }
 
@@ -284,7 +267,6 @@ public class PebbleGame {
                     whiteBags[i] = new WhiteBag();
                     blackBags[i] = new BlackBag(i, whiteBags[i], rocks);
                 }
-                System.out.println(whiteBags.length);
                 break;
             } catch (FileNotFoundException e) {
                 myUserInterface.displayErrorMessage(e.getMessage() + "\nPlease re-enter the file locations.");
@@ -333,10 +315,6 @@ public class PebbleGame {
             }
             success = createbags(myUserInterface, bagLocations, numPlayers);
         }
-
-        // for (BlackBag bag : blackBags) {
-        // System.out.println(bag.toString());
-        // }
 
         Player[] players = new Player[numPlayers];
         Thread[] threads = new Thread[numPlayers];
