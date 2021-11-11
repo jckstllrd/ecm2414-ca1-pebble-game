@@ -31,7 +31,7 @@ public class PebbleGame {
      * array of rocks, a string value for the name and an OutputFileHandler object
      * as attributes.
      */
-    static class Player implements Runnable {
+    public static class Player implements Runnable {
 
         /**
          * This is the array of rocks the player has.
