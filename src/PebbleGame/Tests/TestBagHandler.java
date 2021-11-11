@@ -15,13 +15,15 @@ public class TestBagHandler {
 
     @Test
     public void test_getNextDiscardBag() {
-        assertInstanceOf(WhiteBag.class, BagHandler.getNextDiscardBag());
+        BagHandler bagHandler = new BagHandler();
+        assertInstanceOf(WhiteBag.class, bagHandler.getNextDiscardBag());
     }
 
     @Test
     public void test_updateNextDiscard() {
+        BagHandler bagHandler = new BagHandler();
         WhiteBag testWhiteBag = new WhiteBag();
-        BagHandler.updateNextDiscard(testWhiteBag);
-        assertEquals(testWhiteBag, BagHandler.getNextDiscardBag());
+        bagHandler.updateNextDiscard(testWhiteBag);
+        assertEquals(testWhiteBag, bagHandler.getNextDiscardBag());
     }
 }

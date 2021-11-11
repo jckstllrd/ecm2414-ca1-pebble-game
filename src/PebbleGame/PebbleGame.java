@@ -43,6 +43,7 @@ public class PebbleGame {
          */
         private String name;
         private OutputFileHandler outputFileHandler;
+        private BagHandler bagHandler;
 
         /**
          * This is te constructor for a Player object, it takes in an inex (id number)
@@ -53,6 +54,7 @@ public class PebbleGame {
         public Player(int index) {
             this.name = "player" + String.valueOf(index);
             outputFileHandler = new OutputFileHandler(name);
+            bagHandler = new BagHandler();
         }
 
         /**
@@ -127,9 +129,9 @@ public class PebbleGame {
 
                 newRocks[k++] = rocks[i];
             }
-            BagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
+            bagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
             
-            outputFileHandler.writeDiscardRockMessage(rocks[index].getWeight(), BagHandler.getNextDiscardBag().getNumber());
+            outputFileHandler.writeDiscardRockMessage(rocks[index].getWeight(), bagHandler.getNextDiscardBag().getNumber());
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
@@ -184,7 +186,7 @@ public class PebbleGame {
                 outputFileHandler.writeDrawnRockMessage(nextRock.getWeight(), blackBag.getNumber());
             }
 
-            BagHandler.updateNextDiscard(blackBag.getAssignedWhiteBag());
+            bagHandler.updateNextDiscard(blackBag.getAssignedWhiteBag());
 
             return nextRock;
         }
