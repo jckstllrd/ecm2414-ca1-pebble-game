@@ -11,8 +11,10 @@ Threading was used as it was the best way to simulate multiple different people 
 One of the challenges we faced was that with certain weights given in the files, it was not actually possible for any of the players to reach 100. In this case, we simply allowed the game to continue indefinitely.
 
 ## Running the Project
+To run the project using the.jar file you need to run the command "java -jar --enable-preview pebbles.jar" in command line in the same directory as the pebbles.jar file.
 
-To run our project simply head over to the PebbleGame.java file and run it. You should be greeted with a message saying "Welcome to Pebble Game!!", along with information about what inputs you will need to make. You first input the number of players that you would like to play the game. This should be a non-negative integer, no text or other input will be accepted and it will continue to prompt you for a number until your input is valid.
+
+To run our project via the .java files simply head over to the PebbleGame.java file and run it. You should be greeted with a message saying "Welcome to Pebble Game!!", along with information about what inputs you will need to make. You first input the number of players that you would like to play the game. This should be a non-negative integer, no text or other input will be accepted and it will continue to prompt you for a number until your input is valid.
 
 Next it will ask for the locations for the first, second and third file locations that the program will read from to form the black bags. This must be the file path of your file, for example "inputFiles\exampleFile.csv".
 
