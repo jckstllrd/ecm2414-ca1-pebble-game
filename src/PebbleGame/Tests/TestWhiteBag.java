@@ -1,9 +1,13 @@
-package PebbleGame;
+package PebbleGame.Tests;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
+
+import PebbleGame.BlackBag;
+import PebbleGame.Rock;
+import PebbleGame.WhiteBag;
 
 public class TestWhiteBag {
 

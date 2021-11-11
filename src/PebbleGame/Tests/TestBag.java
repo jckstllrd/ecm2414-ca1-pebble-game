@@ -1,9 +1,12 @@
-package PebbleGame;
+package PebbleGame.Tests;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.Test;
+
+import PebbleGame.Bag;
+import PebbleGame.Rock;
 
 /**
  * This class contains the Tests for the Bag Class.

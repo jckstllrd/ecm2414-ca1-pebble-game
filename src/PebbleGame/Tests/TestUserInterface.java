@@ -1,4 +1,4 @@
-package PebbleGame;
+package PebbleGame.Tests;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
