@@ -60,6 +60,6 @@ public class TestWhiteBag {
 
         testWhiteBag.assignBlackBag(1, testAssignedBlackBag);
 
-        assertEquals(testWhiteBag.assignedBlackBag, testAssignedBlackBag);
+        assertEquals(testWhiteBag.getAssignedBlackBag(), testAssignedBlackBag);
     }
 }

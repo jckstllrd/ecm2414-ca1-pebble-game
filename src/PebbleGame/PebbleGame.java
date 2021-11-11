@@ -129,7 +129,7 @@ public class PebbleGame {
             }
             BagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
             
-            outputFileHandler.writeDiscardRockMessage(rocks[index].getWeight(), BagHandler.getNextDiscardBag().number);
+            outputFileHandler.writeDiscardRockMessage(rocks[index].getWeight(), BagHandler.getNextDiscardBag().getNumber());
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }

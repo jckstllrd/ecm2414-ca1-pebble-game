@@ -12,17 +12,17 @@ public class WhiteBag extends Bag {
     /**
      * This is the black bag the white bag is asigned to.
      */
-    BlackBag assignedBlackBag;
+    private BlackBag assignedBlackBag;
 
     /**
      * This is the array of rocks stored in the white bag.
      */
-    Rock[] rocks;
+    private Rock[] rocks;
 
     /**
      * This is the id number of the white bag.
      */
-    int number;
+    private int number;
 
     /**
      * This is the constructor for a white bag which calls and uses its parent class
@@ -77,6 +77,23 @@ public class WhiteBag extends Bag {
     @Override
     public Rock[] getRocks() {
         return rocks;
+    }
+
+    /**
+     * This method returns the assiged black bag of the white bag.
+     * @return the assigned black bag.
+     */
+    public BlackBag getAssignedBlackBag() {
+        return assignedBlackBag;
+    }
+
+    /**
+     * This method returns the id number of the white bag.
+     * 
+     * @return the id number.
+     */
+    public int getNumber() {
+        return number;
     }
 
     /**
