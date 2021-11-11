@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.Test;
 
-import PebbleGame.PebbleGame.Player;
+import PebbleGame.OutputFileHandler;
+import PebbleGame.PebbleGame.Player;;
 
 public class TestPlayer {
 

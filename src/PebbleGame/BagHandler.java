@@ -12,7 +12,7 @@ public final class BagHandler {
     static private WhiteBag nextDiscard;
 
     /**
-     * This method returns the next WhiteBag which is a rock should be discarded to.
+     * This method returns the nexts WhiteBag which is a rock should be discarded to.
      * 
      * @return The WhiteBag object to discard to next
      */
