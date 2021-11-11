@@ -22,7 +22,17 @@ Note - When giving input, entering "E" will exit out of the program.
 
 ## Testing the Project
 
-To test the project you need to run the code in visual studio and download the java extension 'Test Runner for Java'. Once this is installed you just navigate to the test file that you would like to run and either press the run button to the side of the class line, or you can run a specific method test on its own.
+To test the project firstly you need to run the code in visual studio and download the java extension 'Test Runner for Java'. 
+The next step includes downloading the standalone version of junit (https://search.maven.org/search?q=g:org.junit.platform%20AND%20a:junit-platform-console-standalone) and adding it to either your own libs file or to a folder in the directory you will be running the tests from before navigating to the .vscode folder or by straight accessing the setting.json file, add the following code to the setting.json file replacing ENTER-PATH-HERE with the path of the file you downloaded earlier.
+
+"java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "ENTER-PATH-HERE"
+    ]
+
+For further details see https://code.visualstudio.com/docs/java/java-testing .
+
+Once this is installed an the path has been added to the settings file you just navigate to the test file that you would like to run and either press the run button to the side of the class line, or you can run a specific method test on its own. Equally by using the Testing section of the sidebar you can run all the tests symultaneously.
 
 ## Contributors
 
