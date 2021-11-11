@@ -62,15 +62,7 @@ public class PebbleGame {
          * and drawing rocks until they win or are interupted by someone else winning.
          */
         public void run() {
-            System.out.println(name + ": Has Started");
-            /**
-             * When game begins:
-             * 
-             * Take 10 rocks from bag if not equal to 100: discard a rock take another rock
-             * (while bag not empty) if bag empty: empty white bag into associated black bag
-             * 
-             * if equal to 100: you win
-             */
+            System.out.println(Thread.currentThread().getName() + ": Has Started");
 
             beginGame();
 
@@ -78,6 +70,7 @@ public class PebbleGame {
                 discardRock();
                 addRock(drawRock(false));
             }
+
             System.out.println(name + ": Has Won");
             System.exit(0);
         }
@@ -106,7 +99,7 @@ public class PebbleGame {
             for (Rock rock : rocks) {
                 totalWeight += rock.getWeight();
             }
-            if (totalWeight == 200) {
+            if (totalWeight == 100) {
                 return true;
             } else {
 
@@ -130,8 +123,9 @@ public class PebbleGame {
                 newRocks[k++] = rocks[i];
             }
             bagHandler.getNextDiscardBag().addToWhiteBag(rocks[index]);
-            
-            outputFileHandler.writeDiscardRockMessage(rocks[index].getWeight(), bagHandler.getNextDiscardBag().getNumber());
+
+            outputFileHandler.writeDiscardRockMessage(rocks[index].getWeight(),
+                    bagHandler.getNextDiscardBag().getNumber());
             outputFileHandler.writeAllRocksMessage(Arrays.toString(newRocks));
             rocks = newRocks;
         }
@@ -168,17 +162,8 @@ public class PebbleGame {
                 blackBag.getAssignedWhiteBag().drainWhiteBag();
             }
 
-            if (blackBag.getRocks().length == 0) {
-                System.out.println("DRAIN NOT WORKED");
-            }
-
             int index = rand.nextInt(blackBag.getRocks().length);
             Rock nextRock = blackBag.getRocks()[index];
-
-            if (nextRock == null) {
-                System.out.println(Arrays.toString(blackBag.getRocks()));
-                System.out.println("This rock has a value of null");
-            }
 
             blackBag.removeRock(index);
 
@@ -211,21 +196,26 @@ public class PebbleGame {
     }
 
     /**
-     * This method is used to get an array of rocks from a file and to check that the file meets
-     * the neccesary criteria. Meaning that it does not have any weights which are non-integer values
-     * less than 0 it will throw an exception orif the total number of weights per file is at least
-     * eleven times the number of players then it will throw an exception.
+     * This method is used to get an array of rocks from a file and to check that
+     * the file meets the neccesary criteria. Meaning that it does not have any
+     * weights which are non-integer values less than 0 it will throw an exception
+     * orif the total number of weights per file is at least eleven times the number
+     * of players then it will throw an exception.
      * 
      * @param fileLocation the location of the file storing the rock weights.
-     * @param numPlayers the number of players in the game.
+     * @param numPlayers   the number of players in the game.
      * 
-     * @return the array of rocks with the weights given in the file given by the file location.
+     * @return the array of rocks with the weights given in the file given by the
+     *         file location.
      * 
-     * @throws FileNotFoundException This is thrown if the file is not found at the location given.
-     * @throws IOException This is thrown if ther eis an issue reaing the specified file.
-     * @throws InvalidRockWeightException   This is thrown if the file contains a rock which is either non
-     *                                      zero, not an integer or the total number of rocks is less than
-     *                                      eleven times the number of players.
+     * @throws FileNotFoundException      This is thrown if the file is not found at
+     *                                    the location given.
+     * @throws IOException                This is thrown if ther eis an issue reaing
+     *                                    the specified file.
+     * @throws InvalidRockWeightException This is thrown if the file contains a rock
+     *                                    which is either non zero, not an integer
+     *                                    or the total number of rocks is less than
+     *                                    eleven times the number of players.
      */
     private static Rock[] getRocksFromFile(String fileLocation, int numPlayers)
             throws FileNotFoundException, IOException, InvalidRockWeightException {
@@ -239,7 +229,6 @@ public class PebbleGame {
         br.close();
 
         if (numPlayers * 11 > weights.length) {
-            System.out.println(weights.length);
             throw new InvalidRockWeightException("File doesn't have enough weights for number of players entered.");
         }
 
@@ -257,13 +246,16 @@ public class PebbleGame {
     }
 
     /**
-     * This method is used to create the different bags used by the game. The method will create the three
-     * black bags each filled with rocks specified by the given file locations, and the three white bags where
-     * rocks will be discraded to. These will be stored in the two arrays screated as attributes of this class.
+     * This method is used to create the different bags used by the game. The method
+     * will create the three black bags each filled with rocks specified by the
+     * given file locations, and the three white bags where rocks will be discraded
+     * to. These will be stored in the two arrays screated as attributes of this
+     * class.
      * 
-     * @param myUserInterface The user interface to use to interact with the user if there are any errors.
-     * @param bagLocations An array of the file loctions of the three bags.
-     * @param numPlayers The number of players in the game
+     * @param myUserInterface The user interface to use to interact with the user if
+     *                        there are any errors.
+     * @param bagLocations    An array of the file loctions of the three bags.
+     * @param numPlayers      The number of players in the game
      * 
      * @return whether the opperation was a success (true) or not (false).
      */
@@ -275,7 +267,6 @@ public class PebbleGame {
                     whiteBags[i] = new WhiteBag();
                     blackBags[i] = new BlackBag(i, whiteBags[i], rocks);
                 }
-                System.out.println(whiteBags.length);
                 break;
             } catch (FileNotFoundException e) {
                 myUserInterface.displayErrorMessage(e.getMessage() + "\nPlease re-enter the file locations.");
@@ -295,9 +286,10 @@ public class PebbleGame {
     }
 
     /**
-     * This is the main method which runs when the platform is run. After asing the user for the eccesary details 
-     * It initiates all the neccesary objects and then uses these objects to create threads for each of the players
-     * which then all run simultaneously to find a winner to the game.
+     * This is the main method which runs when the platform is run. After asing the
+     * user for the eccesary details It initiates all the neccesary objects and then
+     * uses these objects to create threads for each of the players which then all
+     * run simultaneously to find a winner to the game.
      * 
      * @param args the arguents given when the program is run
      * 
@@ -323,10 +315,6 @@ public class PebbleGame {
             }
             success = createbags(myUserInterface, bagLocations, numPlayers);
         }
-
-        // for (BlackBag bag : blackBags) {
-        // System.out.println(bag.toString());
-        // }
 
         Player[] players = new Player[numPlayers];
         Thread[] threads = new Thread[numPlayers];
